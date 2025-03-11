@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Page Title</title>
+
+<style>
+/* STAR Menu Plop */
+#menu {
+    background: #000000;
+    height: 45px;
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijar el menú en la parte superior */
+    top: 0;
+    width: 100vw;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra gris en la parte inferior */
+}
+#menu ul, #menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#menu ul {
+    width: 100%;
+    text-align: center;
+}
+#menu li {
+    display: inline-block;
+    position: relative;
+}
+#menu a {
+    display: block;
+    line-height: 45px;
+    padding: 0 14px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 17px;
+}
+#menu a.dropdown-arrow:after {
+    content: "\25BE";
+    margin-left: 5px;
+}
+#menu li a:hover:not(:has(> img)) {
+    color: #E31E24;
+    background: #F2F2F2;
+    border: 1px solid #E31E24;
+}
+#menu input {
+    display: none;
+    margin: 0;
+    padding: 0;
+    height: 45px;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+#menu label {
+    display: none;
+    line-height: 45px;
+    text-align: center;
+    position: absolute;
+    left: 35px;
+}
+#menu label:before {
+    font-size: 55px;
+    color: #FFFFFF;
+    content: "\2261"; 
+    margin-left: 35px;
+}
+#menu ul.sub-menus {
+    height: auto;
+    overflow: hidden;
+    width: 190px;
+    background: #444444;
+    position: absolute;
+    z-index: 99;
+    display: none;
+}
+#menu ul.sub-menus li {
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+#menu ul.sub-menus a {
+    color: #FFFFFF;
+    font-size: 16px;
+}
+#menu li:hover ul.sub-menus {
+    display: block;
+}
+#menu ul.sub-menus a:hover {
+    background: #F2F2F2;
+    color: #444444;
+}
+@media screen and (max-width: 800px) {
+    #menu {
+        height: 50px; /* Ajuste de altura para el menú */
+    }
+    #menu a {
+        font-size: 19px; /* Tamaño de fuente para enlaces del menú en vista móvil */
+        line-height: 50px; /* Ajuste de línea para enlaces del menú */
+    }
+    #menu ul.sub-menus a {
+        font-size: 19px; /* Tamaño de fuente para enlaces de submenús en vista móvil */
+        line-height: 50px; /* Ajuste de línea para enlaces de submenús */
+    }
+    #menu ul {
+        background: #444444;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: 3;
+        height: auto;
+        display: none;
+        text-align: left;
+    }
+    #menu ul.sub-menus {
+        width: 100%;
+        position: static;
+    }
+    #menu ul.sub-menus a {
+        padding-left: 30px;
+        line-height: 50px; /* Ajuste la altura de línea para submenús */
+    }
+    #menu li {
+        display: block;
+        float: none;
+        width: auto;
+    }
+    #menu input, #menu label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+    }
+    #menu input {
+        z-index: 4;
+    }
+    #menu input:checked + label {
+        color: #FFFFFF;
+    }
+    #menu input:checked + label:before {
+        content: "\00d7 ";
+    }
+    #menu input:checked + label span {
+        font-size: 20px;
+        color: rgb(255, 234, 0);
+    }
+    #menu input:checked ~ ul {
+        display: block;
+    }
+    #menu a {
+        line-height: 50px; /* Ajuste la altura de línea para los enlaces */
+    }
+}
+#menu img {
+    vertical-align: middle;
+    margin-right: 8px;
+    transform: scale(0.4); /* Inicialmente escala a 0.4 */
+    transition: transform 1.5s; /* Duración de la transición 1.5 segundos */
+}
+#menu img.visible {
+    transform: scale(1); /* Escala a tamaño completo */
+}
+/* END Menu Plop */ 
+
+/* Cambios específicos para el submenú de Productos */
+#menu .productos-menu li {
+    background-color: #b3afaf; /* Fondo gris claro */
+    height: 70px; /* Alto de cada fila */
+    padding: 0%;
+    margin: 0%;
+    width: 190px;
+}
+/* Texto en negro para el submenú de Productos */
+#menu .sub-menus.productos-menu a {
+    color: #000000; /* Color de texto negro */
+}
+
+#menu .sub-menus.productos-menu img {
+            max-height: 100px; /* Permitir imágenes de hasta 100px de altura */
+            width: auto; /* Mantener la relación de aspecto */
+        }
+
+</style>
+
+</head>
+<body>
+        <!-- STAR Menu Plop-->
+        <nav id='menu'>
+            <input type='checkbox' id='responsive-menu'
+                onclick='updatemenu()'><label><span>&nbsp;&nbsp;Cerrar</span></label>
+            <ul>
+                <li><a href='/'><img id='menu-logo' src='/display-rollup-logo.webp' width='auto' height='35'
+                            alt='Logo Displays Publicitarios'
+                            title="Displays Publicitarios, Diseño, Impresión y personalización"></a></li>
+                <li><a href='/'>Inicio</a></li>
+                <li><a class='dropdown-arrow'>Productos</a>
+                    <ul class='sub-menus productos-menu'>
+                        <li><a href="roll-up-publicitario"><img src="/imagenes/roll-ups.webp"  alt="RollUps">RollUps</a></li>
+                        <li><a href="photocall"><img src="/imagenes/pop-ups.webp"  alt="PopUps">PopUps</a></li>
+                        <li><a href="/mostradores-publicitarios-portatiles" ><img src="/imagenes/mostradores-counters.webp"  alt="Mostradores">Mostradores</a></li>
+                        <li><a href="/porta-folletos" ><img src="/imagenes/porta-catalogos.webp"  alt="Porta Folletos">Porta Folletos</a></li>
+                        <li><a href="/banderas-publicitarias" ><img src="/imagenes/banderas-portatiles.webp"  alt="Banderas">Banderas</a></li>
+                        <li><a href="/x-banner" ><img src="/imagenes/x-banner.webp"  alt="X-Banner">X-Banner</a></li>
+                        <li><a href="/tripodes-publicitarios" ><img src="/imagenes/pop-ups.webp"  alt="Tripodes">Tripodes</a></li>
+                    </ul>
+                </li>
+                <li><a class='dropdown-arrow'>Servicios</a>
+                    <ul class='sub-menus'>
+                        <li><a href="personalizacion-displays-publicitarios" >Personalización</a></li>
+                        <li><a href="repuestos-displays-publicitarios" >Repuestos</a></li>
+                        <li><a href="reparacion-displays-publicitarios" >Reparación</a></li>
+                        <li><a href="reimpresion-displays-publicitarios" >Re Impresión</a></li>
+                                                <li><a href="stands-displays-publicitarios" >Stands</a></li>
+                        <br>
+                    </ul>
+                </li>
+                <li><a class='dropdown-arrow'>Contacto</a>
+                    <ul class='sub-menus'>
+                        <li><a href="contacto" >Oficinas</a></li>
+                        <li><a href="contacto#formulario" >Formulario</a></li>
+                        <br>
+                        <li><a href="contacto#contacto-telefono" >Telefonos</a></li>
+                        <li><a href="contacto#Mensaje-whatsapp" >Whatsapp</a></li>                      
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <script>// menu plop
+            // Star menu Plop
+            function updatemenu() {
+                if (document.getElementById('responsive-menu').checked == true) {
+                    document.getElementById('menu').style.borderBottomRightRadius = '0';
+                    document.getElementById('menu').style.borderBottomLeftRadius = '0';
+                } else {
+                    document.getElementById('menu').style.borderRadius = '0px';
+                }
+            }
+
+            window.onscroll = function() {
+                var menu = document.getElementById('menu');
+                var logo = document.getElementById('menu-logo');
+                if (window.pageYOffset > 500) {
+                    menu.style.display = 'block';
+                    // Agregar un breve retardo para activar la animación después de que el menú sea visible
+                    setTimeout(function() {
+                        logo.classList.add('visible');
+                    }, 10);
+                } else {
+                    menu.style.display = 'none';
+                    logo.classList.remove('visible');
+                }
+            };
+
+            // Función para cerrar el menú tocando fuera de él en vista móvil
+            document.addEventListener('click', function(event) {
+                var isClickInsideMenu = document.getElementById('menu').contains(event.target);
+                var checkbox = document.getElementById('responsive-menu');
+                
+                if (!isClickInsideMenu && checkbox.checked) {
+                    checkbox.checked = false;
+                    updatemenu();
+                }
+            });
+            // END menu Plop
+        </script>
+        <!-- END Menu Plop-->
+<h1>This is a Heading</h1>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<p>This is a paragraph.</p>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+.spritew2 {
+    background-image: url('/imagenes/catalogo-displays-publicitarios.webp');
+    background-repeat: no-repeat;
+    background-size: 1500px 1000px;
+    will-change: background-position;
+    margin: 0 auto;
+}
+
+.spritew2-1, .spritew2-2, .spritew2-3, .spritew2-4, .spritew2-5, .spritew2-6, .spritew2-7,.spritew2-8, 
+.spritew2-9, .spritew2-10, .spritew2-11, .spritew2-12, .spritew2-13, .spritew2-14, .spritew2-15, .spritew2-16,
+ .spritew2-17, .spritew2-18, .spritew2-19, .spritew2-20, .spritew2-21, .spritew2-22, .spritew2-23, .spritew2-24 {
+    width: 250px;
+    height: 250px;
+}
+
+
+.spritew2-1 { background-position: 0 0; }
+.spritew2-2 { background-position: -250px 0; }
+.spritew2-3 { background-position: -500px 0; }
+.spritew2-4 { background-position: -750px 0; }
+.spritew2-5 { background-position: -1000px 0; }
+.spritew2-6 { background-position: -1250px 0; }
+
+.spritew2-7 { background-position: 0 -250px; }
+.spritew2-8 { background-position: -250px -250px; }
+.spritew2-9 { background-position: -500px -250px; }
+.spritew2-10 { background-position: -750px -250px; }
+.spritew2-11 { background-position: -1000px -250px; }
+.spritew2-12 { background-position: -1250px -250px; }
+
+.spritew2-13 { background-position: 0 -500px; }
+.spritew2-14 { background-position: -250px -500px; }
+.spritew2-15 { background-position: -500px -500px; }
+.spritew2-16 { background-position: -750px -500px; }
+.spritew2-17 { background-position: -1000px -500px; }
+.spritew2-18 { background-position: -1250px -500px; }
+
+.spritew2-19 { background-position: 0 -750px; }
+.spritew2-20 { background-position: -250px -750px; }
+.spritew2-21 { background-position: -500px -750px; }
+.spritew2-22 { background-position: -750px -750px; }
+.spritew2-23 { background-position: -1000px -750px; }
+.spritew2-24 { background-position: -1250px -750px; }

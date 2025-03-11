@@ -1,0 +1,32 @@
+.spritew1 {
+    background-image: url('/imagenes/detalles-rollups.webp');
+    background-repeat: no-repeat;
+    background-size: 1440px 500px;
+    will-change: background-position;
+    margin: 0 auto;
+}
+.spritew1-1, .spritew1-2, .spritew1-3, .spritew1-4 {
+    width: 360px;
+    height: 500px;
+}
+.spritew1-1 { background-position: 0 0; }
+.spritew1-2 { background-position: -360px 0; }
+.spritew1-3 { background-position: -720px 0; }
+.spritew1-4 { background-position: -1080px 0; }
+
+/* Cambios para pantallas de 840px o menores */
+@media (max-width: 840px) {
+    .spritew1 {
+        background-size: 720px 250px; /* Ajustamos el tamaño total del sprite */
+    }
+
+    .spritew1-1, .spritew1-2, .spritew1-3, .spritew1-4 {
+        width: 180px; /* Ancho de cada sección */
+        height: 250px; /* Alto de cada sección */
+    }
+
+    .spritew1-1 { background-position: 0 0; }
+    .spritew1-2 { background-position: -180px 0; }
+    .spritew1-3 { background-position: -360px 0; }
+    .spritew1-4 { background-position: -540px 0; }
+}

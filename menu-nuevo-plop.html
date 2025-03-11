@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+    <title>Page Title</title>
+
+    <link rel="preload" as="style" href="/cods/css/estilos-web-generales.css">
+    <link rel="stylesheet" type="text/css" href="/cods/css/estilos-web-generales.css"> 
+
+</head>
+<body>
+    <!--👇 STAR Nuevo menu Plop -->
+    <style>
+        /* 👇Star Estilo nuevo menu plop con imagenes  */
+        header {
+            position: fixed;
+            top: -50px;
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            transition: top 0.3s;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            position: relative;
+            display: flex; /* Utilizar flex para alinear elementos */
+            align-items: center; /* Centrar verticalmente */
+            padding: 0 10px; /* Espacio lateral */
+        }
+
+        .menu li img {
+            margin: auto; /* Centrar la imagen */
+            width: auto; /* Ancho automático para mantener la proporción */
+        }
+
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            display: block;
+        }
+
+        .menu li:hover .submenu {
+            display: block;
+        }
+
+        /* Submenú */
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: #616161;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            top: 48px;
+        }
+
+        .submenu li {
+            width: 280px;
+            margin-bottom: -10px; /* Espacio entre los elementos */
+        }
+
+        .submenu li a {
+            padding: 10px;
+        }
+
+        .submenu li a img {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Estilo para móviles */
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            color: white;
+            margin-top: 15px;
+        }
+
+        /* Responsivo */
+        @media (max-width: 840px) {
+            .menu {
+                display: none;
+                flex-direction: column;
+                background-color: #333;
+                margin-top: 10px;
+            }
+            .menu li {
+                text-align: center;
+            }
+            .submenu {
+                position: static;
+            }
+            .mobile-menu {
+                display: block;
+            }
+
+            /* Cambiar tamaño de las imágenes en el submenú */
+            .submenu li a img {
+                width: 40px; /* Ajustar el ancho a 40px */
+                height: 40px; /* Ajustar la altura a 40px */
+            }
+        }
+
+        /* Agregar flecha hacia abajo para los elementos con submenú */
+        .has-submenu > a::after {
+            content: "\25BE";
+            margin-left: 8px;
+            font-size: 0.8em;
+        }
+
+        /* Subrayar los enlaces al hacer hover en los elementos del menú principal, sin afectar a los submenús */
+        .menu > li:not(.has-submenu) > a:hover,
+        .menu > li.has-submenu:hover > a {
+            color: red; /* Cambiar el color a rojo */
+        }
+
+        /* Subrayar los enlaces del submenú al hacer hover */
+        .submenu li a:hover {
+            text-decoration: underline; /* Subrayar el enlace */
+        }
+
+        /* Estilo para la palabra "Cerrar" en negrita */
+        .bold-text {
+            font-weight: bold;
+        }
+
+        /* Estilo inicial para la imagen */
+        .image-effect {
+            width: 105px; /* Tamaño inicial pequeño */
+            transition: transform 0.9s ease-in-out;
+            transform: scale(0.5); /* Escala inicial más pequeña */
+        }
+
+        /* Estilo para cuando la imagen es visible */
+        .image-effect.visible {
+            transform: scale(1); /* Escala más grande al hacerse visible */
+        }
+
+        /* Estilo zoom imagenes */
+        .zoom-image {
+            transition: transform 0.5s ease; /* Efecto de transición */
+        }
+
+        .zoom-image:hover {
+            transform: scale(2.1); /* Aumenta el tamaño de la imagen al pasar el mouse */
+        }
+        /* 👆 END Estilo nuevo menu plop con imagenes  */
+    </style>
+
+    <header id="header">
+        <nav class="navbar">
+            <ul class="menu">
+                <li>
+                    <a href="catalogo-display-rollup"><img src="/display-rollup-logo.webp" height="35px" alt="Displays Publicitarios, Diseño, Impresión y personalización" loading="lazy" class="image-effect"></a>
+                </li>
+                
+                <li class="dropdown has-submenu">
+                    <a href="#">Productos</a>
+                    <ul class="submenu">
+                        <li><a href="roll-up-publicitario"><img class="zoom-image" src="/imagenes/roll-ups.webp" alt="Roll Ups" width="60" height="60" loading="lazy"> Roll Ups</a></li>
+                        <li><a href="pop-up-publicitario"><img class="zoom-image" src="/imagenes/pop-ups.webp" alt="Pop Ups" width="60" height="60" loading="lazy"> Pop Ups</a></li>
+                        <li><a href="mostradores-publicitarios-portatiles"><img class="zoom-image" src="/imagenes/mostradores-counters.webp" alt="Mostradores" width="60" height="60" loading="lazy"> Mostradores / Counters</a></li>
+                        <li><a href="banderas-publicitarias"><img class="zoom-image" src="/imagenes/banderas-portatiles.webp" alt="Banderas" width="60" height="60" loading="lazy"> Banderas</a></li>
+                        <li><a href="tropezones"><img class="zoom-image" src="/imagenes/tropezones-calle.webp" alt="Tropezones" width="60" height="60" loading="lazy"> Tropezones</a></li>
+                        <li><a href="x-banner"><img class="zoom-image" src="/imagenes/x-banner.webp" alt="X-Banner" width="60" height="60" loading="lazy"> X-Banner</a></li>
+                        <li><a href="banderas-publicitarias"><img class="zoom-image" src="/imagenes/pop-man.webp" alt="Popman" width="60" height="60" loading="lazy"> Popmans</a></li>
+                        <li><a href="tripodes-publicitarios"><img class="zoom-image" src="/imagenes/tripodes.webp" alt="Tripodes" width="60" height="60" loading="lazy"> Tripodes</a></li>
+                        <li><a href="porta-folletos"><img class="zoom-image" src="/imagenes/porta-catalogos.webp" alt="Porta Catálogos" width="60" height="60" loading="lazy"> Porta Catálogos</a></li>
+                        <li><a href="photocall"><img class="zoom-image" src="/imagenes/photo-call.webp" alt="Photo Calls" width="60" height="60" loading="lazy"> Photo Calls</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown has-submenu">
+                    <a href="#">Servicios</a>
+                    <ul class="submenu">
+                        <li><a href="personalizacion-displays-publicitarios" >Personalización</a></li>
+                        <li><a href="repuestos-displays-publicitarios" >Repuestos</a></li>
+                        <li><a href="reparacion-displays-publicitarios" >Reparación</a></li>
+                        <li><a href="reimpresion-displays-publicitarios" >Re Impresión</a></li>
+                        <li><a href="stands-displays-publicitarios" >Stands</a></li>
+                        <br>
+                    </ul>
+                </li>
+                <li><a href="personalizacion-displays-publicitarios">Personalizar</a></li>
+                <li><a href="alquiler-displays-publicitarios">Alquiler</a></li>
+                <li class="dropdown has-submenu">
+                    <a href="#">Contacto</a>
+                    <ul class="submenu">
+                        <li><a href="contacto#contacto-telefono" >Telefonos</a></li>
+                        <li><a href="contacto#Mensaje-whatsapp" >Whatsapp</a></li>
+                        <li><a href="contacto#formulario" >Formulario</a></li>
+                        <br>
+
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="mobile-menu">
+                <span id="menu-toggle">Menu &#9776;</span>
+            </div>
+        </nav>
+    </header>
+
+        <!-- script de Efecto escala -->
+    <script>
+            // Funcionalidad para mostrar el menú móvil
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const menu = document.querySelector('.menu');
+            const toggleButton = document.getElementById('menu-toggle');
+            
+            // Cambiar el texto, color y estilo según el estado del menú
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+                toggleButton.textContent = 'Menu';
+                toggleButton.style.color = 'white'; // Color original
+                toggleButton.classList.remove('bold-text'); // Quitar negrita
+            } else {
+                menu.style.display = 'block';
+                toggleButton.textContent = 'Cerrar';
+                toggleButton.style.color = 'red'; // Cambiar a rojo
+                toggleButton.classList.add('bold-text'); // Agregar negrita
+            }
+        });
+
+        
+        // Mostrar el menú cuando se hace scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+            if (window.innerWidth > 840 && currentScroll > 500) {
+                header.style.top = '0';
+            } else if (window.innerWidth <= 840 && currentScroll > 300) {
+                header.style.top = '0';
+            } else {
+                header.style.top = '-50px';
+            }
+
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+        });
+
+
+
+                // Función para verificar si la imagen es visible en la pantalla
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // Seleccionar la imagen
+    const image = document.querySelector('.image-effect');
+    
+    // Agregar evento de scroll para verificar la visibilidad
+    window.addEventListener('scroll', function() {
+        if (isInViewport(image)) {
+            image.classList.add('visible');
+        } else {
+            image.classList.remove('visible');
+        }
+    });
+    
+    // Verificar visibilidad al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        if (isInViewport(image)) {
+            image.classList.add('visible');
+        }
+    });
+    </script>
+    <!--👆 END Nuevo menu Plop -->
+    <h1>This is a Heading</h1>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p>This is a paragraph.</p>
+    <div class="altura-div">Contenido de la página</div>
+</body>
+</html>

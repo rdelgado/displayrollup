@@ -1,0 +1,73 @@
+.spriteG {
+    background-image: url('/imagenes/logotipos.webp');
+    background-repeat: no-repeat;
+    background-size: 500px 250px;
+    will-change: background-position;
+    transition: background-position 0.2s ease-in-out, transform 0.2s ease-in-out;
+    margin: 0 auto;
+}
+
+.spriteG-1 {
+    width: 300px;
+    height: 100px;
+}
+
+.spriteG-2 {
+    width: 200px;
+    height: 250px;
+}
+
+.spriteG-3, .spriteG-4, .spriteG-5 {
+    width: 100px;
+    height: 100px;
+}       
+
+.spriteG-6 {
+    width: 300px;
+    height: 50px;
+}        
+
+    .spriteG-1 { background-position: 0 0; }
+    .spriteG-2 { background-position: -300px 0; }
+    
+    .spriteG-3 { background-position: 0 -100px; }
+    .spriteG-4 { background-position: -100px -100px; }
+    .spriteG-5 { background-position: -200px -100px; }
+    
+    .spriteG-6 { background-position: 0 -200px; }
+
+@media screen and (max-width: 900px) {
+    .spriteG {
+        background-size: 300px 150px;
+    }
+
+    .spriteG-1 {
+        width: 180px;
+        height: 60px;
+        }
+
+    .spriteG-2 {
+        width: 120px;
+        height: 150px;
+        }
+        
+    .spriteG-3, .spriteG-4, .spriteG-5 {
+        width: 60px;
+        height: 60px;
+        }   
+        
+    .spriteG-6 {
+        width: 180px;
+        height: 30px;
+        }                
+
+    .spriteG-1 { background-position: 0 0; }
+    .spriteG-2 { background-position: -180px 0; }
+    
+    .spriteG-3 { background-position: 0 -60px; }
+    .spriteG-4 { background-position: -60px -60px; }
+    .spriteG-5 { background-position: -120px -60px; } 
+    
+    .spriteG-6 { background-position: 0 -120px; }             
+ 
+    }

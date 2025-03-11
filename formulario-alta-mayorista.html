@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Suscripción</title>
+    <style>
+        h1 {
+            color: #000;
+            font-size: 23px;
+        }
+        .form-container {
+            width: 350px;
+            margin: 15px auto;
+            padding: 15px;
+            border: 2px solid #f0a308;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #submit {
+            width: 150px;
+            padding: 10px;
+            background-color: #28a745; /* Verde cuando aparece */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 auto; /* Centrado */
+            display: none; /* Oculto por defecto en CSS */
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+            margin-bottom: 10px;
+        }
+        /* Media query para vista móvil */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 320px; /* Ancho de 320px en móviles */
+                margin: 10px auto;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <img src="https://displayrollup.com/imagenes/display-rollup-logo.png" alt="Display Rollup Logo" class="Alta como Profesional Mayorista de Display Rollup" height="60px">
+        <h1>Alta como Profesional Mayorista de Display Rollup</h1>
+        <p>Llena todos los datos, nuestro equipo de altas se comunicara con vosotros.</p>
+    </center>
+    
+    <div class="form-container">
+        <form action="https://grupoexposistemas.com/sendy/subscribe" method="POST" accept-charset="utf-8" id="subscription-form">
+            <label for="Empresa">Empresa</label>
+            <input type="text" name="Empresa" id="Empresa" placeholder="Ej: Mi Empresa"/>
+            <span class="error" id="empresa-error">Mínimo 2 palabras, máximo 10, cada una con al menos 2 letras o números, sin signos HTML.</span>
+
+            <label for="Cif/Nif">Cif/Nif</label>
+            <input type="text" name="Cif/Nif" id="Cif/Nif" placeholder="Ej: A12345678"/>
+            <span class="error" id="cif-error">No se permiten signos HTML como < > ".</span>
+
+            <label for="name">Nombre Administrador</label>
+            <input type="text" name="name" id="name" placeholder="Ej: Juan Perez"/>
+            <span class="error" id="name-error">Mínimo 2 palabras, máximo 10, cada una con al menos 3 letras, sin signos HTML.</span>
+
+            <label for="Ciudad">Ciudad</label>
+            <input type="text" name="Ciudad" id="Ciudad" placeholder="Ej: Madrid"/>
+            <span class="error" id="ciudad-error">No se permiten signos HTML como < > ".</span>
+
+            <label for="Dirección">Dirección</label>
+            <input type="text" name="Dirección" id="Dirección" placeholder="Ej: Calle Principal 123"/>
+            <span class="error" id="direccion-error">No se permiten signos HTML como < > ".</span>
+
+            <label for="CP">CP</label>
+            <input type="tel" name="CP" id="CP" placeholder="Ej: 28001" pattern="[0-9]*" inputmode="numeric"/>
+            <span class="error" id="cp-error">Solo se permiten números.</span>
+
+            <label for="Teléfono">Teléfono</label>
+            <input type="tel" name="Teléfono" id="Teléfono" placeholder="Ej: 123456789" pattern="[0-9]*" inputmode="numeric"/>
+            <span class="error" id="telefono-error">Solo se permiten números.</span>
+
+            <label for="PáginaWeb">Página Web</label>
+            <input type="text" name="PáginaWeb" id="PáginaWeb" placeholder="Ej: www.ejemplo.com"/>
+            <span class="error" id="web-error">No se permiten signos HTML como < > ".</span>
+
+            <label for="email">Confirmanos el Email</label>
+            <input type="email" name="email" id="email" placeholder="Ej: tu@email.com"/>
+            <span class="error" id="email-error">El email debe contener '@' y no puede incluir signos HTML.</span>
+
+            <div style="display:none;">
+                <label for="hp">HP</label><br/>
+                <input type="text" name="hp" id="hp"/>
+            </div>
+            <input type="hidden" name="list" value="Ew892HZoYY1A892YtMKCSVed0A"/>
+            <input type="hidden" name="subform" value="yes"/>
+            <input type="submit" name="submit" id="submit" value="Enviar"/>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('subscription-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const empresaInput = document.getElementById('Empresa');
+        const cifInput = document.getElementById('Cif/Nif');
+        const ciudadInput = document.getElementById('Ciudad');
+        const direccionInput = document.getElementById('Dirección');
+        const cpInput = document.getElementById('CP');
+        const telefonoInput = document.getElementById('Teléfono');
+        const webInput = document.getElementById('PáginaWeb');
+        const submitButton = document.getElementById('submit');
+
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const empresaError = document.getElementById('empresa-error');
+        const cifError = document.getElementById('cif-error');
+        const ciudadError = document.getElementById('ciudad-error');
+        const direccionError = document.getElementById('direccion-error');
+        const cpError = document.getElementById('cp-error');
+        const telefonoError = document.getElementById('telefono-error');
+        const webError = document.getElementById('web-error');
+
+        // Asegurarse de que el botón esté oculto al cargar la página
+        submitButton.style.display = 'none';
+
+        // Expresiones regulares
+        const noHtmlRegex = /^[^<>"]+$/; // Prohíbe signos HTML
+        const emailRegex = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/; // Email básico
+        const numberRegex = /^[0-9]+$/; // Solo números
+        const alphanumericRegex = /^[a-zA-Z0-9\s]+$/; // Letras y números
+        const letterRegex = /^[a-zA-Z\s]+$/; // Solo letras
+
+        // Validación genérica
+        function validateField(input, regex, errorElement) {
+            const value = input.value.trim();
+            const isValid = value.length > 0 && regex.test(value);
+            if (!isValid && value.length > 0) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        // Validación para "Empresa" (mínimo 2 palabras, máximo 10, 2+ caracteres)
+        function validateEmpresa() {
+            const value = empresaInput.value.trim();
+            const words = value.split(/\s+/).filter(word => word.length > 0);
+            const isValid = words.length >= 2 && 
+                           words.length <= 10 && 
+                           words.every(word => word.length >= 2 && alphanumericRegex.test(word));
+            if (!isValid && value.length > 0) {
+                empresaError.style.display = 'block';
+            } else {
+                empresaError.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        // Validación para "Nombre Administrador" (mínimo 2 palabras, máximo 10, 3+ letras)
+        function validateName() {
+            const value = nameInput.value.trim();
+            const words = value.split(/\s+/).filter(word => word.length > 0);
+            const isValid = words.length >= 2 && 
+                           words.length <= 10 && 
+                           words.every(word => word.length >= 3 && letterRegex.test(word));
+            if (!isValid && value.length > 0) {
+                nameError.style.display = 'block';
+            } else {
+                nameError.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        // Validación para "Email"
+        function validateEmail() {
+            const value = emailInput.value.trim();
+            const isValid = value.length > 0 && emailRegex.test(value);
+            if (!isValid && value.length > 0) {
+                emailError.style.display = 'block';
+            } else {
+                emailError.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        // Validación para "CP" y "Teléfono" (solo números)
+        function validateNumeric(input, errorElement) {
+            const value = input.value.trim();
+            const isValid = value.length > 0 && numberRegex.test(value);
+            if (!isValid && value.length > 0) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        // Actualizar visibilidad del botón
+        function updateSubmitButton() {
+            const isEmpresaValid = validateEmpresa();
+            const isCifValid = validateField(cifInput, noHtmlRegex, cifError);
+            const isNameValid = validateName();
+            const isCiudadValid = validateField(ciudadInput, noHtmlRegex, ciudadError);
+            const isDireccionValid = validateField(direccionInput, noHtmlRegex, direccionError);
+            const isCpValid = validateNumeric(cpInput, cpError);
+            const isTelefonoValid = validateNumeric(telefonoInput, telefonoError);
+            const isWebValid = validateField(webInput, noHtmlRegex, webError);
+            const isEmailValid = validateEmail();
+
+            const areFieldsFilled = empresaInput.value.trim().length > 0 &&
+                                   cifInput.value.trim().length > 0 &&
+                                   nameInput.value.trim().length > 0 &&
+                                   ciudadInput.value.trim().length > 0 &&
+                                   direccionInput.value.trim().length > 0 &&
+                                   cpInput.value.trim().length > 0 &&
+                                   telefonoInput.value.trim().length > 0 &&
+                                   webInput.value.trim().length > 0 &&
+                                   emailInput.value.trim().length > 0;
+
+            if (isEmpresaValid && isCifValid && isNameValid && isCiudadValid && isDireccionValid &&
+                isCpValid && isTelefonoValid && isWebValid && isEmailValid && areFieldsFilled) {
+                submitButton.style.display = 'block';
+            } else {
+                submitButton.style.display = 'none';
+            }
+        }
+
+        // Filtrar y validar en tiempo real
+        const textInputs = [cifInput, ciudadInput, direccionInput, webInput];
+        textInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                input.value = input.value.replace(/[<>"]/g, '');
+                updateSubmitButton();
+            });
+        });
+
+        empresaInput.addEventListener('input', () => {
+            empresaInput.value = empresaInput.value.replace(/[^a-zA-Z0-9\s]/g, '');
+            updateSubmitButton();
+        });
+
+        nameInput.addEventListener('input', () => {
+            nameInput.value = nameInput.value.replace(/[^a-zA-Z\s]/g, '');
+            updateSubmitButton();
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailInput.value = emailInput.value.replace(/[<>"]/g, '');
+            updateSubmitButton();
+        });
+
+        cpInput.addEventListener('input', () => {
+            cpInput.value = cpInput.value.replace(/[^0-9]/g, '');
+            updateSubmitButton();
+        });
+
+        telefonoInput.addEventListener('input', () => {
+            telefonoInput.value = telefonoInput.value.replace(/[^0-9]/g, '');
+            updateSubmitButton();
+        });
+
+        // Prevenir envío si no está validado
+        form.addEventListener('submit', (e) => {
+            if (!validateEmpresa() || !validateField(cifInput, noHtmlRegex, cifError) || 
+                !validateName() || !validateField(ciudadInput, noHtmlRegex, ciudadError) ||
+                !validateField(direccionInput, noHtmlRegex, direccionError) || 
+                !validateNumeric(cpInput, cpError) || !validateNumeric(telefonoInput, telefonoError) ||
+                !validateField(webInput, noHtmlRegex, webError) || !validateEmail()) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

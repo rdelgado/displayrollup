@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cotizador de Rollup</title>
+    <style>
+        /* Aquí va el CSS actualizado */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .cotizador {
+            width: 800px;
+            margin: 5px auto;
+            padding: 5px;
+            border: 0px solid #696969;
+            border-radius: 5px;
+            background-color: transparent;
+            position: relative;
+        }
+        @media (max-width: 840px) {
+            .cotizador {
+                margin: 1px auto;
+                width: 350px;
+            }
+        }
+        h2 {
+            margin-top: 0%;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        .familia-producto, .medida-producto, .altura-producto, .cantidad-producto, .totales, .datos-envio {
+            margin-bottom: 10px;
+        }
+
+        .familia-producto select:hover {
+            cursor: pointer; /* Cambia el cursor a pointer al pasar sobre el select */
+        }
+
+        .producto-item {
+            margin-left: 20px;
+        }
+
+        #productos > * {
+            margin-bottom: 10px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .totales, .totales-item {
+            /*font-weight: bold;*/
+            color: #0d0d0d;
+            margin: 0%;
+            padding: 0%;
+        }
+        .boton {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .boton-rojo {
+            background-color: #dc3545;
+        }
+
+        .boton-verde {
+            background-color: #005CC8;
+        }
+
+        input[type="number"] {
+            width: 50px;
+        }
+        input[type="text"], input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 5px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+        }
+        .slider-container input[type="range"] {
+            margin: 0 10px;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+
+        .producto-seleccionado {
+            display: flex;
+            justify-content: space-between; /* Coloca el contenido a ambos extremos */
+            align-items: center; /* Alinea verticalmente el contenido */
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .boton-borrar {
+            margin-left: 10px; /* Añade un margen para separarlo del texto */
+        }
+
+        .boton-container {
+            display: flex;
+            justify-content: center;
+        }
+        .boton-reset {
+            position: relative;
+            /*bottom: 10px;*/
+            /*right: 10px;*/
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .boton-altura-estandar {
+            display: block;
+            margin: 10px auto;
+        }
+        .altura-producto {
+            text-align: center; /* Centra el texto dentro del contenedor */
+        }
+
+        #altura-value {
+            font-size: 25px;
+            font-weight: bold;
+            color: #005CC8;
+        }
+
+        
+        .linea-separadora {
+            border: 0; /* Elimina cualquier borde predeterminado */
+            border-top: 1px solid #ccc; /* Define el grosor y color de la línea */
+            margin: 10px 0; /* Ajusta el espacio alrededor de la línea */
+        }
+            
+        .linea-separadorag {
+            border: 0; /* Elimina cualquier borde predeterminado */
+            border-top: 5px solid #088625; /* Define el grosor y color de la línea */
+            margin: 10px 0; /* Ajusta el espacio alrededor de la línea */
+        }
+
+        .linea {
+            display: block;      /* Activa el modelo de flexbox para el contenedor */
+            align-items: center; /* Alinea verticalmente los elementos al centro */
+            gap: 15px;
+            text-align: center;
+        }
+
+        .azul {
+            background-color: #005CC8;
+            color: #fff;
+            border: 0px solid #ccc;
+            border-radius: 3px;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .total {
+            font-size: 25px;
+            padding: 0%;
+            margin: 0%;
+        }
+
+        .presupuesto {
+            border: 1px solid #696969;
+            border-radius: 10px;
+            margin: 2px;
+            padding: 5px;
+        }
+
+/* STAR Definir la animación de pulsación */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulsating-text {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+    color: #000000;
+    animation: pulse 1.5s ease-in-out 0s 2; /* Ejecuta la animación automáticamente 2 veces */
+    animation-fill-mode: forwards; /* Mantener el último estado de la animación */
+}
+
+                        /* Usar una clase para reiniciar la animación cuando se haga hover */
+.pulsating-text:hover {
+    animation: none; /* Detener cualquier animación previa antes de reiniciar */
+}
+
+.pulsating-text:hover::before {
+    content: '';
+    animation: pulse 1.5s ease-in-out 0s 2; /* Repetir 2 veces en hover */
+    animation-fill-mode: forwards;
+}
+
+/* END Definir la animación de pulsación */
+    </style>
+</head>
+<body>
+    <div class="cotizador">
+        <h2 style="text-align: center;">Paso 1: Escoge un tipo de Rollup</h2>
+
+        <style>
+            .familia-producto {
+                position: relative;
+                width: 300px;
+                margin: 0 auto;
+            }            
+            .custom-select {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                cursor: pointer;
+                width: 100%;
+            }
+    
+            .custom-select img {
+                width: 50px;
+                height: 50px;
+                margin-left: 10px;
+            }
+    
+            .custom-select-text {
+                flex-grow: 1;
+            }
+    
+            .custom-select-arrow {
+                margin-left: 10px;
+            }
+    
+            .custom-options {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                z-index: 10;
+                overflow: hidden;
+            }
+    
+            .custom-options.open {
+                display: block;
+            }
+    
+            .custom-option {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                cursor: pointer;
+            }
+    
+            .custom-option:hover {
+                background-color: #f0f0f0;
+            }
+    
+            .custom-option img {
+                width: 60px;
+                height: 60px;
+            }
+    
+            /* Oculta el select original */
+            select {
+                display: none;
+            }
+        </style>
+
+        <div class="familia-producto">
+            <div class="custom-select" onclick="toggleOptions()">
+                <span id="selected-text" class="custom-select-text">Tipos de Roll-Ups</span>
+                <span class="custom-select-arrow">▼</span>
+            </div>
+            <div id="custom-options" class="custom-options">
+                <div class="custom-option" onclick="selectOption('economicos', 'Rollups económicos', 'economicos.jpg')">
+                    <span>Rollups económicos</span>
+                    <img src="https://displayrollup.com/imagenes/display-roll-up-barato.webp" alt="Rollups económicos">
+                </div>
+                <div class="custom-option" onclick="selectOption('lujo', 'Rollups de lujo', 'lujo.jpg')">
+                    <span>Rollups de lujo</span>
+                    <img src="https://displayrollup.com/imagenes/display-roll-up-reforzado.webp" alt="Rollups de lujo">
+                </div>
+                <div class="custom-option" onclick="selectOption('doble-cara', 'Rollups doble cara', 'doble-cara.jpg')">
+                    <span>Rollups doble cara</span>
+                    <img src="https://displayrollup.com/imagenes/display-roll-up-doble.webp" alt="Rollups doble cara">
+                </div>
+                <div class="custom-option" onclick="selectOption('doble-exteriores', 'Rollups doble exteriores', 'doble-exteriores.jpg')">
+                    <span>Rollups doble exteriores</span>
+                    <img src="https://displayrollup.com/imagenes/display-roll-up-exteriores.webp" alt="Rollups doble exteriores">
+                </div>
+                <div class="custom-option" onclick="selectOption('mini', 'Rollups mini', 'mini.jpg')">
+                    <span>Rollups mini</span>
+                    <img src="https://portapendones.net/assets/img/roll-up-mini.jpg" alt="Rollups mini">
+                </div>
+            </div>
+    
+            <!-- Select original, oculto -->
+            <select id="familia" onchange="mostrarProductos()">
+                <option value="">Selecciona Tipo de Rollup</option>
+                <option value="economicos">Rollups económicos</option>
+                <option value="lujo">Rollups de lujo</option>
+                <option value="doble-cara">Rollups doble cara</option>
+                <option value="doble-exteriores">Rollups doble exteriores</option>
+                <option value="mini">Rollups mini</option>
+            </select>
+        </div>
+    
+        <script>
+            function toggleOptions() {
+                const options = document.getElementById("custom-options");
+                options.classList.toggle("open");
+            }
+    
+            function selectOption(value, text, imgSrc) {
+                document.getElementById("selected-text").textContent = text;
+    
+                // Sincroniza el select original con la opción seleccionada
+                const selectElement = document.getElementById("familia");
+                selectElement.value = value;
+                
+                // Llama a la función mostrarProductos si existe
+                if (typeof mostrarProductos === "function") {
+                    mostrarProductos();
+                }
+    
+                toggleOptions();
+            }
+        </script>
+
+        
+        <div class="medida-producto" style="display:none;">
+            <br>
+            <p><!-- Texto con efecto pulsación -->
+                <span>Paso 2:</span>
+                <span class="pulsating-text">Escoge Medida de Ancho.</span>
+            </p>
+            <div class="center" id="productos"></div>
+        </div>
+
+        <div class="altura-producto" style="display:none;">
+            <div class="linea">
+                <span>Paso 3:</span>
+                <span class="pulsating-text">Puedes variar la Altura, desliza el selector.</span>
+            <span id="altura-value">200 cm</span>
+            </div>
+            <div class="slider-container">
+                <button onclick="cambiarAltura(-1)" class="azul">-</button>
+                <input type="range" id="altura" min="50" max="350" value="200" oninput="actualizarAltura()">
+                <button onclick="cambiarAltura(1)" class="azul">+</button>
+            </div>
+            <div class="linea">
+                <button class="boton boton-verde boton-altura-estandar" onclick="restablecerAltura()">Altura estándar</button>
+            </div>
+        </div>
+
+        <div class="cantidad-producto" style="display:none;">
+            <br>
+            <span>Paso 4:</span>
+            <span class="pulsating-text">Decide la Cantidad de productos.</span>
+            <center>
+                <button onclick="cambiarCantidad(-1)" class="azul">-</button>
+                <input type="number" id="cantidad" value="1" min="1" onchange="actualizarCantidad()">
+                <button onclick="cambiarCantidad(1)" class="azul">+</button>
+            </center>
+        </div>
+
+        <div class="presupuesto">
+            <!--<hr class="linea-separadorag" />-->
+            <h2 style="color: #0d0d0d; text-align: center;">Productos Presupuestados:</h2>
+            <div id="productos-seleccionados"></div>
+
+            <div class="totales" style="display:none;">
+                <h2 style="color: #0d0d0d; text-align: left; font-size: 14px; font-weight: 100;">* Precio RollUps Completos. Estructura y Gráfica.</h2>
+                <p class="totales-item">Subtotal: <span id="subtotal">0.00€</span></p>
+                <p class="totales-item">IVA del 21%: <span id="iva">0.00€</span></p>
+                <p class="totales-item total">Total: <span id="total">0.00€</span></p>
+            </div>
+    
+            <div class="boton-container">
+                <button class="boton" onclick="anadirProducto()">Añadir producto</button>&nbsp;&nbsp;&nbsp;
+                <!-- Botón de reseteo -->
+                <button class="boton boton-reset" onclick="resetearCotizador()">Resetear</button>
+            </div>
+            <!--<hr class="linea-separadorag" />-->
+        </div>
+
+        <div class="datos-envio" style="display:none;">
+            <br><br>
+            <div class="presupuesto">
+                <h2 class="center">¿Deseas añadir Accesorios?</h2>
+                <center><p>Escoge uno o varios.</p></center>
+                <style>
+                    .checkbox-group {
+                        display: flex;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                    }
+                    .checkbox-item {
+                        position: relative;
+                    }
+                    .checkbox-item img {
+                        width: 50px;
+                        height: 50px;
+                        cursor: pointer;
+                        transition: border 0.3s, filter 0.3s;
+                    }
+                    .checkbox-item input[type="checkbox"] {
+                        position: absolute;
+                        opacity: 0;
+                        width: 50px;
+                        height: 50px;
+                        cursor: pointer;
+                    }
+                    .checkbox-item input[type="checkbox"]:checked + label img {
+                        border: 3px solid blue; /* Cambia el borde cuando está seleccionado */
+                        filter: brightness(0.8); /* Aplica un filtro para indicar selección */
+                        border-radius: 50px;
+                    }
+                    .checkbox-item label {
+                        display: block;
+                        text-align: center;
+                        margin-top: 5px;
+                        cursor: pointer;
+                    }
+                </style>
+                
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Luces" name="imageSelect" value="1">
+                        <label for="Luces">
+                            <img src="https://displayrollup.com/imagenes/display-roll-up-doble.webp" alt="Imagen 1">
+                            <br>Luces
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Mostrador" name="imageSelect" value="2">
+                        <label for="Mostrador">
+                            <img src="https://displayrollup.com/imagenes/display-roll-up-barato.webp" alt="Imagen 2">
+                            <br>Mostrador
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Contrapeso" name="imageSelect" value="3">
+                        <label for="Contrapeso">
+                            <img src="https://displayrollup.com/imagenes/display-roll-up-reforzado.webp" alt="Imagen 3">
+                            <br>Contrapeso
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Porta-catalogo" name="imageSelect" value="4">
+                        <label for="Porta-catalogo">
+                            <img src="https://displayrollup.com/imagenes/bolsa-rollup-economico.webp" alt="Imagen 4">
+                            <br>Porta-catalogo
+                        </label>
+                    </div>
+                </div>
+                
+                <script>
+                    document.querySelectorAll('.checkbox-item label').forEach(label => {
+                        label.addEventListener('click', function(e) {
+                            const checkbox = this.previousElementSibling;
+                            if (checkbox.checked) {
+                                checkbox.checked = false;
+                            } else {
+                                checkbox.checked = true;
+                            }
+                            e.preventDefault(); // Evita el comportamiento predeterminado de cambiar el estado del checkbox dos veces
+                        });
+                    });
+                </script>
+                              
+            </div>
+
+            <br><br><h2 class="center">Paso 5: Envíar Presupuesto a.</h2>
+            <p style="font-size: 12px; color: #dc3545;">* Datos Obligatorios, para el presupuesto.</p>
+            <input type="text" id="nombre" placeholder="* Nombre y Apellido" required>
+            <input type="email" id="email" placeholder="* Correo Electrónico, hay llegará el presupuesto." required>
+            <input type="text" id="ciudad" placeholder="* Ciudad" required>
+            <textarea id="comentarios" placeholder="Comentarios"></textarea>
+            <div>
+                <!-- STAR checkboxs especiales -->
+                <div class="checkbox-wrapper-25">
+                    <input type="checkbox" id="terminos" required><span style="font-size: 10px; color: #000;">* Acepto los términos y condiciones.</span>
+                </div>
+                  
+                  <br>
+                  
+                <div class="checkbox-wrapper-25">
+                    <input type="checkbox" id="ofertas" required><span style="font-size: 10px; color: #000;">* Acepto recibir presupuesto por whatsapp.</span>
+                </div>
+                  
+                <style>
+                .checkbox-wrapper-25 input[type="checkbox"] {
+                    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1), hsla(0,0%,100%,.1)),
+                                    -webkit-linear-gradient(left, #f66 50%, #6cf 50%);
+                    background-size: 100% 100%, 200% 100%;
+                    background-position: 0 0, 15px 0;
+                    border-radius: 25px;
+                    box-shadow: inset 0 1px 4px hsla(0,0%,0%,.5),
+                                inset 0 0 10px hsla(0,0%,0%,.5),
+                                0 0 0 1px hsla(0,0%,0%,.1),
+                                0 -1px 2px 2px hsla(0,0%,0%,.25),
+                                0 2px 2px 2px hsla(0,0%,100%,.75);
+                    cursor: pointer;
+                    height: 25px;
+                    padding-right: 25px;
+                    width: 75px;
+                    appearance: none;
+                    transition: 0.25s;
+                }
+                
+                .checkbox-wrapper-25 input[type="checkbox"]:after {
+                    background-color: #eee;
+                    background-image: -webkit-linear-gradient(hsla(0,0%,100%,.1), hsla(0,0%,0%,.1));
+                    border-radius: 25px;
+                    box-shadow: inset 0 1px 1px 1px hsla(0,0%,100%,1),
+                                inset 0 -1px 1px 1px hsla(0,0%,0%,.25),
+                                0 1px 3px 1px hsla(0,0%,0%,.5),
+                                0 0 2px hsla(0,0%,0%,.25);
+                    content: '';
+                    display: block;
+                    height: 25px;
+                    width: 50px;
+                }
+                
+                .checkbox-wrapper-25 input[type="checkbox"]:checked {
+                    background-position: 0 0, 35px 0;
+                    padding-left: 25px;
+                    padding-right: 0;
+                    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1), hsla(0,0%,100%,.1)),
+                                    -webkit-linear-gradient(left, #28a745 50%, #28a745 50%); /* Verde cuando está marcado */
+                }
+                </style>
+                <!-- END checkboxs especiales -->  
+            </div>
+            
+            <center>
+                <button class="boton" onclick="enviarWhatsApp()">Solicitar Presupuesto</button>
+            </center>
+        </div>
+
+        <!-- Botón de reseteo -->
+        <!--<button class="boton boton-reset" onclick="resetearCotizador()">Resetear</button>-->
+    </div>
+
+    <script>
+const PRECIO_POR_M2 = 26.00;
+const PRECIO_POR_M2_EXCEPCION = PRECIO_POR_M2 * 2; // Precio del m² con la excepción
+
+const productos = {
+    "economicos": [
+        { medida: "60 cm", precio: 14.95 },
+        { medida: "85 cm", precio: 16.95 },
+        { medida: "100 cm", precio: 17.20 },
+        { medida: "150 cm", precio: 28.90 },
+        { medida: "200 cm", precio: 65.00 }
+    ],
+    "lujo": [
+        { medida: "85 cm", precio: 43.90 },
+        { medida: "100 cm", precio: 52.50 },
+        { medida: "240 cm", precio: 89.00 },
+        { medida: "300 cm", precio: 120.00 }
+    ],
+    "doble-cara": [
+        { medida: "85 cm", precio: 47.50 },
+        { medida: "100 cm", precio: 54.90 }
+    ],
+    "doble-exteriores": [
+        { medida: "85 cm", precio: 109.00 },
+        { medida: "100 cm", precio: 135.00 }
+    ],
+    "mini": [
+        { medida: "21x30 cm", precio: 5.99 },
+        { medida: "30x42 cm", precio: 6.75 }
+    ]
+};
+
+// Variables globales
+let productosSeleccionados = [];
+let alturaPersonalizada = 200;
+
+// Muestra los productos disponibles según la familia seleccionada
+function mostrarProductos() {
+    const familia = document.getElementById("familia").value;
+    const medidaProducto = document.querySelector(".medida-producto");
+    const productosDiv = document.getElementById("productos");
+
+    if (familia) {
+        productosDiv.innerHTML = '';
+        productos[familia].forEach((producto, index) => {
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "producto";
+            radio.value = index;
+            radio.onclick = () => seleccionarProducto(familia, index);
+
+            const label = document.createElement("label");
+            label.innerHTML = `${producto.medida}`;
+            label.classList.add("producto-item");
+
+            productosDiv.appendChild(radio);
+            productosDiv.appendChild(label);
+            productosDiv.appendChild(document.createElement("br"));
+        });
+
+        medidaProducto.style.display = 'block';
+    } else {
+        medidaProducto.style.display = 'none';
+    }
+}
+
+// Selecciona un producto y actualiza el total
+function seleccionarProducto(familia, index) {
+    const productoSeleccionado = productos[familia][index];
+    document.getElementById("altura").value = alturaPersonalizada;
+    actualizarAltura();
+
+    document.querySelector(".altura-producto").style.display = familia === "mini" ? 'none' : 'block';
+    document.querySelector(".cantidad-producto").style.display = 'block';
+
+    // Restablecer cantidad a 1 cuando se selecciona un nuevo producto
+    document.getElementById("cantidad").value = 1;
+
+    // Calcular el total inicial del producto seleccionado
+    const total = calcularPrecioTotal(productoSeleccionado.medida, alturaPersonalizada, productoSeleccionado.precio, familia);
+
+    if (isNaN(total)) {
+        console.error('Error en el cálculo del total:', {
+            medida: productoSeleccionado.medida,
+            altura: alturaPersonalizada,
+            precioBase: productoSeleccionado.precio
+        });
+        return;
+    }
+
+    // Verificar si el producto ya existe en la lista
+    let productoExistente = productosSeleccionados.find(producto => 
+        producto.familia === familia && 
+        producto.medida === productoSeleccionado.medida && 
+        producto.altura === alturaPersonalizada
+    );
+
+    if (productoExistente) {
+        // Si el producto ya existe, simplemente actualizar el total basado en la nueva cantidad
+        productoExistente.total = calcularPrecioTotal(productoExistente.medida, productoExistente.altura, productoExistente.precioBase, productoExistente.familia) * productoExistente.cantidad;
+    } else {
+        // Si el producto no existe, añadirlo a la lista con cantidad 1
+        productosSeleccionados.push({
+            familia,
+            medida: productoSeleccionado.medida,
+            precioBase: productoSeleccionado.precio,
+            altura: alturaPersonalizada,
+            cantidad: 1, // Cantidad inicial es 1
+            total: total
+        });
+    }
+
+    actualizarCotizacion();
+}
+
+// Calcula el precio total de un producto
+function calcularPrecioTotal(medida, altura, precioBase, familia) {
+    let ancho, area;
+
+    // Verificar si la medida es en formato "ancho x alto"
+    if (medida.includes('x')) {
+        const dimensiones = medida.split('x').map(dim => parseFloat(dim.trim()));
+        if (dimensiones.length === 2) {
+            ancho = dimensiones[0];
+            const alto = dimensiones[1];
+            area = (ancho / 100) * (alto / 100);
+        } else {
+            console.error('Formato de medida incorrecto:', medida);
+            return NaN;
+        }
+    } else {
+        ancho = parseFloat(medida);
+        area = (ancho / 100) * (altura / 100);
+    }
+
+    if (isNaN(area) || isNaN(precioBase)) {
+        console.error('Datos no numéricos detectados:', { medida, altura, precioBase });
+        return NaN;
+    }
+
+    const precioM2 = (familia === "doble-cara" || familia === "doble-exteriores") ? PRECIO_POR_M2_EXCEPCION : PRECIO_POR_M2;
+
+    return precioM2 * area + precioBase;
+}
+
+// Actualiza la altura del producto
+function actualizarAltura() {
+    const altura = parseInt(document.getElementById("altura").value);
+    document.getElementById("altura-value").textContent = `${altura} cm`;
+    alturaPersonalizada = altura;
+
+    if (productosSeleccionados.length > 0) {
+        const ultimoProducto = productosSeleccionados[productosSeleccionados.length - 1];
+        ultimoProducto.altura = altura;
+        ultimoProducto.total = calcularPrecioTotal(ultimoProducto.medida, altura, ultimoProducto.precioBase, ultimoProducto.familia) * ultimoProducto.cantidad;
+        actualizarCotizacion();
+    }
+}
+
+// Cambia la altura usando el slider
+function cambiarAltura(valor) {
+    const slider = document.getElementById("altura");
+    let nuevaAltura = parseInt(slider.value) + valor;
+    if (nuevaAltura >= 50 && nuevaAltura <= 350) {
+        slider.value = nuevaAltura;
+        actualizarAltura();
+    }
+}
+
+// Restablece la altura al valor inicial
+function restablecerAltura() {
+    document.getElementById("altura").value = 200;
+    actualizarAltura();
+}
+
+// Actualiza la cantidad del producto seleccionado
+function actualizarCantidad() {
+    const cantidadInput = document.getElementById("cantidad");
+    const cantidad = parseInt(cantidadInput.value);
+    if (productosSeleccionados.length > 0) {
+        const ultimoProducto = productosSeleccionados[productosSeleccionados.length - 1];
+        ultimoProducto.cantidad = cantidad;
+        ultimoProducto.total = calcularPrecioTotal(ultimoProducto.medida, ultimoProducto.altura, ultimoProducto.precioBase, ultimoProducto.familia) * cantidad;
+        actualizarCotizacion();
+    }
+}
+
+// Cambia la cantidad del producto usando botones
+function cambiarCantidad(valor) {
+    const cantidadInput = document.getElementById("cantidad");
+    let nuevaCantidad = parseInt(cantidadInput.value) + valor;
+    if (nuevaCantidad >= 1) {
+        cantidadInput.value = nuevaCantidad;
+        actualizarCantidad();
+    }
+}
+
+// Actualiza la cotización mostrando subtotal, IVA y total
+function actualizarCotizacion() {
+    let subtotal = 0;
+
+    productosSeleccionados.forEach(producto => {
+        subtotal += producto.total;
+    });
+
+    const iva = subtotal * 0.21;
+    const total = subtotal + iva;
+
+    const productosHTML = productosSeleccionados.map((producto, index) => {
+        const familiaNombre = {
+            "economicos": "Rollups economicos",
+            "lujo": "Rollups de lujo",
+            "doble-cara": "Rollups doble cara",
+            "doble-exteriores": "Rollups doble exteriores",
+            "mini": "Rollups mini"
+        }[producto.familia];
+
+        return `
+        <hr class="linea-separadora" />
+            <div class="producto-seleccionado">
+                <p>◾ ${familiaNombre}: de ${producto.medida}${producto.familia === "mini" ? "" : `, Alto ${producto.altura} cm`}, ${producto.cantidad} unidad(s). = ${producto.total.toFixed(2)}€</p>
+                <button class="boton boton-rojo boton-borrar" onclick="eliminarProducto(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                    <line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
+            </div>
+        `;
+    }).join("");
+
+    document.getElementById("productos-seleccionados").innerHTML = productosHTML;
+    document.getElementById("subtotal").textContent = `${subtotal.toFixed(2)}€`;
+    document.getElementById("iva").textContent = `${iva.toFixed(2)}€`;
+    document.getElementById("total").textContent = `${total.toFixed(2)}€`;
+
+    document.querySelector(".totales").style.display = 'block';
+    document.querySelector(".datos-envio").style.display = 'block';
+}
+
+// Elimina un producto de la lista seleccionada
+function eliminarProducto(index) {
+    productosSeleccionados.splice(index, 1);
+    actualizarCotizacion();
+}
+
+// Restablece todos los campos del cotizador
+function anadirProducto() {
+    document.getElementById("familia").value = "";
+    document.querySelector(".medida-producto").style.display = 'none';
+    document.querySelector(".altura-producto").style.display = 'none';
+    document.querySelector(".cantidad-producto").style.display = 'none';
+    document.getElementById("productos").innerHTML = '';
+    document.getElementById("altura").value = alturaPersonalizada;
+    document.getElementById("cantidad").value = 1; // Restablece la cantidad a 1
+}
+
+// Restablece toda la cotización y los campos del formulario
+function resetearCotizador() {
+    productosSeleccionados = [];
+    document.getElementById("familia").value = "";
+    document.querySelector(".medida-producto").style.display = 'none';
+    document.querySelector(".altura-producto").style.display = 'none';
+    document.querySelector(".cantidad-producto").style.display = 'none';
+    document.querySelector(".totales").style.display = 'none';
+    document.querySelector(".datos-envio").style.display = 'none';
+    document.getElementById("productos").innerHTML = '';
+    document.getElementById("productos-seleccionados").innerHTML = '';
+    document.getElementById("nombre").value = '';
+    document.getElementById("email").value = '';
+    document.getElementById("ciudad").value = '';
+    document.getElementById("comentarios").value = '';
+    document.getElementById("terminos").checked = false;
+    document.getElementById("ofertas").checked = false;
+}
+
+// Envía los datos a WhatsApp
+function enviarWhatsApp() {
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const ciudad = document.getElementById("ciudad").value;
+    const comentarios = document.getElementById("comentarios").value;
+    const subtotal = document.getElementById("subtotal").textContent;
+    const iva = document.getElementById("iva").textContent;
+    const total = document.getElementById("total").textContent;
+
+    // Crear el texto de los productos seleccionados con el formato adecuado
+    const productosSeleccionadosText = productosSeleccionados.map(producto => {
+        const familiaNombre = {
+            "economicos": "Rollup Económico",
+            "lujo": "Rollup de Lujo",
+            "doble-cara": "Rollup Doble cara",
+            "doble-exteriores": "Rollup doble Exterior",
+            "mini": "Rollups Mini"
+        }[producto.familia];
+
+        return `• ${familiaNombre}, de ${producto.medida}${producto.familia === "mini" ? "" : `, Alto ${producto.altura} cm`}, ${producto.cantidad} unidad(s). = *${producto.total.toFixed(2)}€*`;
+    }).join("\n\n");
+
+    // Obtener los valores de los checkboxes seleccionados
+    const extrasSeleccionados = [];
+    if (document.getElementById("Luces").checked) extrasSeleccionados.push("Luces");
+    if (document.getElementById("Mostrador").checked) extrasSeleccionados.push("Mostrador");
+    if (document.getElementById("Contrapeso").checked) extrasSeleccionados.push("Contrapeso");
+    if (document.getElementById("Porta-catalogo").checked) extrasSeleccionados.push("Porta-catalogo");
+
+    const extrasSeleccionadosText = extrasSeleccionados.length > 0 
+        ? `\n\n*Extras seleccionados:*\n• ${extrasSeleccionados.join("\n• ")}`
+        : "";
+
+    // Verificar que todos los campos obligatorios están completos
+    if (!nombre || !email || !ciudad || !document.getElementById("terminos").checked || !document.getElementById("ofertas").checked) {
+        alert("Por favor, completa todos los campos obligatorios.");
+        return;
+    }
+
+    // Construir el mensaje final
+    const mensaje = `*Datos del Cliente*:\nNombre: ${nombre}\nEmail: ${email}\nCiudad: ${ciudad}\nComentarios: ${comentarios}\n\n*Productos seleccionados:*\n${productosSeleccionadosText}${extrasSeleccionadosText}\n\nSubtotal: ${subtotal}\nIVA: ${iva}\n*Total:* *${total}*\n\nEste presupuesto fue creado por el cliente a través de nuestro formulario automático en la página web: https://displayrollup.com/`;
+
+    const url = `whatsapp://send?phone=34644774495&text=${encodeURIComponent(mensaje)}`;
+
+    // Abrir WhatsApp con el mensaje predefinido
+    window.open(url, '_blank');
+
+    // Redirigir a la página de contacto se puede quitar si se desea
+    setTimeout(() => {
+    window.location.href = "https://displayrollup.com/tipos-terminados-rollups";
+}, 2000); // Espera 2 segundos antes de redirigir
+}
+    </script>
+</body>
+</html>

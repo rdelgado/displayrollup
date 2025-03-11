@@ -1,0 +1,102 @@
+{
+    "productos": [
+        {"nombre": "popup-recto-1","precio": 559},
+        {"nombre": "popup-recto-2","precio": 774},
+        {"nombre": "popup-recto-3","precio": 918},
+        {"nombre": "popup-recto-4","precio": 1053},
+        {"nombre": "popup-recto-5","precio": 1196},
+        {"nombre": "popup-recto-6","precio": 1800},
+
+        {"nombre": "popup-curvo-1","precio": 559},
+        {"nombre": "popup-curvo-2","precio": 759},
+        {"nombre": "popup-curvo-3","precio": 895},
+        {"nombre": "popup-curvo-4","precio": 1025},
+        {"nombre": "popup-curvo-5","precio": 1157},
+        {"nombre": "popup-curvo-6","precio": 1800},
+
+        {"nombre": "popup-tela-1","precio": 344},
+        {"nombre": "popup-tela-2","precio": 414},
+        {"nombre": "popup-tela-3","precio": 536},
+        {"nombre": "popup-tela-4","precio": 657},
+        {"nombre": "popup-tela-5","precio": 792},
+        {"nombre": "popup-tela-6","precio": 913},
+        {"nombre": "popup-tela-7","precio": 1042},
+        {"nombre": "popup-tela-8","precio": 1500},
+        
+        {"nombre": "ajustable-1","precio": 308},
+        {"nombre": "ajustable-2","precio": 528},
+
+        {"nombre": "x-banner-eco-1","precio": 25},
+        {"nombre": "x-banner-eco-2","precio": 44},
+        {"nombre": "x-banner-eco-3","precio": 58},
+        {"nombre": "x-banner-eco-4","precio": 81},
+        {"nombre": "x-banner-eco-5","precio": 1},
+        {"nombre": "x-banner-eco-6","precio": 2},
+
+        {"nombre": "x-banner-ref-1","precio": 51},
+        {"nombre": "x-banner-ref-2","precio": 67},
+        {"nombre": "x-banner-ref-3","precio": 88},
+        
+        {"nombre": "x-banner-ext1-1","precio": 139},
+        {"nombre": "x-banner-ext1-2","precio": 260},
+        
+        {"nombre": "x-banner-ext2-1","precio": 142},
+        {"nombre": "x-banner-ext2-2","precio": 270},
+        
+        {"nombre": "x-banner-mini-1","precio": 25},
+        {"nombre": "x-banner-mini-2","precio": 35},
+
+
+        {"nombre": "roll-mini-a4","precio": 23},
+        {"nombre": "roll-mini-a3","precio": 30},
+        {"nombre": "roll-eco-60","precio": 46.15},
+        {"nombre": "roll-eco-85","precio": 59.15},
+        {"nombre": "roll-eco-100","precio": 69.2},
+        {"nombre": "roll-eco-150","precio": 89},
+        {"nombre": "roll-eco-200","precio": 149},
+        {"nombre": "roll-eco-240","precio": 208},
+
+        {"nombre": "roll-ref-1","precio": 119},
+        {"nombre": "roll-ref-2","precio": 139},
+        
+        {"nombre": "roll-2c-1","precio": 125},
+        {"nombre": "roll-2c-2","precio": 145},
+        
+        {"nombre": "roll-ext-1","precio": 255},
+        {"nombre": "roll-ext-2","precio": 305},
+
+        {"nombre": "degustacion","precio": 233},
+        {"nombre": "frijol","precio": 347},   
+        {"nombre": "rectangular","precio": 257},
+        
+        {"nombre": "portacatalogo-1c","precio": 135},
+        {"nombre": "portacatalogo-2c","precio": 99},
+        {"nombre": "portacatalogo-1ct","precio": 45},
+        {"nombre": "portacatalogo-2ct","precio": 55},
+        {"nombre": "revistero-12","precio": 262},
+        {"nombre": "revistero-1c","precio": 132},
+        {"nombre": "revistero-2c","precio": 161},
+        
+        {"nombre": "bandera-5m","precio": 499},
+        {"nombre": "banderin","precio": 199},
+        {"nombre": "fly-gota-s","precio": 96},
+        {"nombre": "fly-gota-m","precio": 137},
+        {"nombre": "fly-gota-l","precio": 202},
+        {"nombre": "fly-gota-xl","precio": 305},
+
+        {"nombre": "fly-vela-s","precio": 100},
+        {"nombre": "fly-vela-m","precio": 145},
+        {"nombre": "fly-vela-l","precio": 189},
+        {"nombre": "fly-vela-xl","precio": 221},
+
+        {"nombre": "popman-gota","precio": 84},
+        {"nombre": "popman-bandera","precio": 71},
+        {"nombre": "popman-x","precio": 84},
+
+        {"nombre": "golf-s","precio": 79},
+        {"nombre": "golf-m","precio": 152},
+        {"nombre": "golf-l","precio": 230},
+        {"nombre": "golf-o","precio": 95}        
+
+    ]
+}

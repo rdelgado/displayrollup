@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        /* Estilos básicos para el formulario */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <form id="contactForm">
+        <label for="nombre">Nombre Completo <span class="error" id="nombreError">* Obligatorio</span></label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="email">Email <span class="error" id="emailError">* Obligatorio</span></label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="telefono">Teléfono <span class="error" id="telefonoError">* Obligatorio</span></label>
+        <input type="tel" id="telefono" name="telefono" required>
+
+        <label for="pais">País <span class="error" id="paisError">* Obligatorio</span></label>
+        <select id="pais" name="pais" required>
+            <option value="">Seleccione un país</option>
+            <option value="Colombia">Colombia</option>
+            <option value="España">España</option>
+            <option value="Mexico">México</option>
+            <option value="Ecuador">Ecuador</option>
+        </select>
+
+        <label for="comentario">Comentario</label>
+        <textarea id="comentario" name="comentario" rows="4"></textarea>
+
+        <label>
+            <input type="checkbox" id="terminos" name="terminos" required>
+            Acepto los <a href="link_a_terminos_y_condiciones.html" target="_blank">términos y condiciones</a>
+            <span class="error" id="terminosError">* Obligatorio</span>
+        </label>
+
+        <button type="button" id="whatsappButton" disabled>Por WhatsApp</button>
+        <button type="button" id="emailButton" disabled>Por E-mail</button>
+        <button type="button" id="whatsappEmailButton" disabled>WhatsApp/Email</button>
+    </form>
+
+    <script>
+        // Validación y activación de botones
+        const form = document.getElementById('contactForm');
+        const requiredFields = ['nombre', 'email', 'telefono', 'pais', 'terminos'];
+        const whatsappButton = document.getElementById('whatsappButton');
+        const emailButton = document.getElementById('emailButton');
+        const whatsappEmailButton = document.getElementById('whatsappEmailButton');
+
+        // Función para mostrar el mensaje de error si el campo está vacío
+        function showErrorMessage(id) {
+            const errorElement = document.getElementById(id + 'Error');
+            const field = document.getElementById(id);
+            if (id === 'terminos') {
+                errorElement.style.display = !field.checked ? 'inline' : 'none';
+            } else {
+                errorElement.style.display = field.value.trim() === '' ? 'inline' : 'none';
+            }
+        }
+
+        // Función para ocultar el mensaje de error al hacer clic en el campo
+        function hideErrorMessage(id) {
+            const errorElement = document.getElementById(id + 'Error');
+            errorElement.style.display = 'none';
+        }
+
+        // Añadir evento focus a cada campo requerido para ocultar el mensaje de error
+        requiredFields.forEach(id => {
+            const field = document.getElementById(id);
+            field.addEventListener('focus', () => hideErrorMessage(id));
+            field.addEventListener('blur', () => showErrorMessage(id));
+        });
+
+        form.addEventListener('input', () => {
+            let allFilled = requiredFields.every(id => {
+                if (id === 'terminos') return document.getElementById(id).checked;
+                return document.getElementById(id).value.trim() !== '';
+            });
+            whatsappButton.disabled = !allFilled;
+            emailButton.disabled = !allFilled;
+            whatsappEmailButton.disabled = !allFilled;
+        });
+
+        whatsappButton.addEventListener('click', () => {
+            enviarPorWhatsApp();
+        });
+
+        emailButton.addEventListener('click', () => {
+            enviarPorEmail();
+        });
+
+        whatsappEmailButton.addEventListener('click', () => {
+            enviarPorWhatsApp();
+            enviarPorEmailAjax(); // Usar AJAX para el envío del correo
+        });
+
+        function enviarPorWhatsApp() {
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const pais = document.getElementById('pais').value;
+            const comentario = document.getElementById('comentario').value;
+            const mensaje = `Nombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefono}\nPaís: ${pais}\nComentario: ${comentario}`;
+
+            const whatsappURL = `https://wa.me/34644774495?text=${encodeURIComponent(mensaje)}`;
+            window.open(whatsappURL, '_blank'); // Abre en una nueva pestaña
+        }
+
+        function enviarPorEmailAjax() {
+            const formData = new FormData(form);
+
+            fetch('enviar-email.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert('El correo se ha enviado correctamente.');
+                window.location.href = 'https://displayrollup.com/contacto#';
+            })
+            .catch(error => {
+                alert('Hubo un problema al enviar el correo. Inténtalo de nuevo más tarde.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        /* Estilos básicos para el formulario */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 0px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+            
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Efecto de sombra al pasar el ratón solo si el botón está habilitado */
+        button.enabled:hover {
+            box-shadow: 5px 5px 5px #090909d2; /* Efecto de sombra al pasar el ratón */
+        }
+
+        /* Estilo del botón activo para "Send to E-mail" */
+        #emailButton.enabled {
+            background-color: #155724; /* Verde oscuro */
+        }
+
+        /* Estilo del botón activo para "Send to E-mail" */
+        #whatsappEmailButton.enabled {
+            background-color: #083914; /* Verde oscuro */
+        }
+
+        /* Efecto de sombra al pasar el ratón en "Add more models" */
+        button[onclick*="irASeccion('footer-section')"]:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Manejo de los botones de + y - */
+        .quantity-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .quantity-wrapper input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .qty-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 3px;
+            margin-left: 12px;
+            line-height: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: bold;
+            padding: 0;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .qty-btn:active {
+            background-color: #9e9898;
+        }
+
+        .qty-btn:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+        }
+
+
+                /* efecto del checkbox */
+                .checkbox-wrapper-22 .switch {
+          display: inline-block;
+          height: 34px;
+          position: relative;
+          width: 60px;
+        }
+      
+        .checkbox-wrapper-22 .switch input {
+          display:none;
+        }
+      
+        .checkbox-wrapper-22 .slider {
+          background-color: #ccc;
+          bottom: 0;
+          cursor: pointer;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transition: .4s;
+        }
+      
+        .checkbox-wrapper-22 .slider:before {
+          background-color: #fff;
+          bottom: 4px;
+          content: "";
+          height: 26px;
+          left: 4px;
+          position: absolute;
+          transition: .4s;
+          width: 26px;
+        }
+      
+        .checkbox-wrapper-22 input:checked + .slider {
+          background-color: #66bb6a;
+        }
+      
+        .checkbox-wrapper-22 input:checked + .slider:before {
+          transform: translateX(26px);
+        }
+      
+        .checkbox-wrapper-22 .slider.round {
+          border-radius: 34px;
+        }
+      
+        .checkbox-wrapper-22 .slider.round:before {
+          border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <section id="contact-section">
+        <form id="contactForm">
+            <label for="nombre">Nombre Completo <span class="error" id="nombreError">* required</span></label>
+            <input type="text" id="nombre" name="nombre" required>
+    
+            <label for="email">Email <span class="error" id="emailError">* required</span></label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefono">Teléfono <span class="error" id="telefonoError">* required</span></label>
+            <input type="tel" id="telefono" name="telefono" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+            
+            <label for="pais">Personalización <span class="error" id="paisError">* required</span></label>
+            <!--<input type="pais" id="pais" name="pais" required>-->
+
+            <select id="pais" name="pais" required>
+                <option value="">Seleccione un tipo</option>
+                <option value="Altura">Altura</option>
+                <option value="Transparencia">Transparencia</option>
+                <option value="Accesorios">Accesorios</option>
+            </select>
+    
+            <label for="comentario">Mensaje</label>
+            <textarea id="comentario" name="comentario" rows="4"></textarea>
+    
+            <div class="checkbox-wrapper-22">
+                <label class="switch" for="terminos">
+                    <input type="checkbox" id="terminos" name="terminos" required>
+                    <div class="slider round"></div>
+                </label>
+                <span class="error" id="terminosError">* required</span>
+            </div>
+            <p>Acepto los <a href="contacto#terminos-legales" target="_blank">Terminos y Condiciones</a></p>            
+            
+            <center>
+                <button type="button" id="whatsappButton" disabled>Enviar por WhatsApp &nbsp;
+                    <img src="imagenes/whatsapp-social-media.svg" alt="whatsapp" height="15px" width="15px"> 
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" id="emailButton" disabled>Enviar por E-mail&nbsp;
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-at-sign"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
+                </button>
+            </center>
+
+            <center>
+                <button type="button" id="whatsappEmailButton" disabled>Enviar por WhatsApp y Email&nbsp;
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-at-sign"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
+                    <img src="imagenes/whatsapp-social-media.svg" alt="whatsapp" height="15px" width="15px">
+                </button>
+            </center>
+        </form>
+    </section>
+
+    <script>
+        // Añadir un event listener para el checkbox de "terminos"
+        const checkboxTerminos = document.getElementById('terminos');
+        checkboxTerminos.addEventListener('change', () => {
+            showErrorMessage('terminos');
+        });
+    
+        // Validación y activación de botones
+        const form = document.getElementById('contactForm');
+        const requiredFields = ['nombre', 'email', 'telefono', 'pais', 'terminos'];
+        const whatsappButton = document.getElementById('whatsappButton');
+        const emailButton = document.getElementById('emailButton');
+        const whatsappEmailButton = document.getElementById('whatsappEmailButton');
+    
+        // Función para mostrar el mensaje de error si el campo está vacío
+        function showErrorMessage(id) {
+            const errorElement = document.getElementById(id + 'Error');
+            const field = document.getElementById(id);
+            if (id === 'terminos') {
+                errorElement.style.display = !field.checked ? 'inline' : 'none';
+            } else {
+                errorElement.style.display = field.value.trim() === '' ? 'inline' : 'none';
+            }
+        }
+    
+        // Función para ocultar el mensaje de error al hacer clic en el campo
+        function hideErrorMessage(id) {
+            const errorElement = document.getElementById(id + 'Error');
+            errorElement.style.display = 'none';
+        }
+    
+        // Añadir evento focus a cada campo requerido para ocultar el mensaje de error
+        requiredFields.forEach(id => {
+            const field = document.getElementById(id);
+            field.addEventListener('focus', () => hideErrorMessage(id));
+            field.addEventListener('blur', () => showErrorMessage(id));
+        });
+    
+        form.addEventListener('input', () => {
+            let allFilled = requiredFields.every(id => {
+                if (id === 'terminos') return document.getElementById(id).checked;
+                return document.getElementById(id).value.trim() !== '';
+            });
+            whatsappButton.disabled = !allFilled;
+            emailButton.disabled = !allFilled;
+            whatsappEmailButton.disabled = !allFilled;
+    
+            // Agregar o quitar la clase 'enabled' según el estado de los botones
+            if (allFilled) {
+                whatsappButton.classList.add('enabled');
+                emailButton.classList.add('enabled');
+                whatsappEmailButton.classList.add('enabled');
+            } else {
+                whatsappButton.classList.remove('enabled');
+                emailButton.classList.remove('enabled');
+                whatsappEmailButton.classList.remove('enabled');
+            }
+        });
+    
+        whatsappButton.addEventListener('click', () => {
+            console.log('Enviando mensaje a WhatsApp...'); // Mensaje de depuración
+            enviarPorWhatsApp();
+        });
+    
+        emailButton.addEventListener('click', () => {
+            enviarPorEmail();
+        });
+    
+        whatsappEmailButton.addEventListener('click', () => {
+            enviarPorWhatsApp();
+            enviarPorEmailAjax(); // Usar AJAX para el envío del correo
+        });
+    
+        // Envio de mensaje por whatsapp
+        function enviarPorWhatsApp() {
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const pais = document.getElementById('pais').value;
+            const comentario = document.getElementById('comentario').value;
+
+            // Mensaje actualizado
+            const mensaje = `Personalización de Displays Publicitarios.\n` +
+                            `Nombre: ${nombre}\nEmail: ${email}\nTelefono: ${telefono}\nTipo: ${pais}\nMensaje: ${comentario}\n` +
+                            `Este mensaje lo creó el cliente a través de https://displayrollup.com/personalizacion-displays-publicitarios. y aceptó los términos y condiciones.`;
+
+            const whatsappURL = `whatsapp://send?phone=34644774495&text=${encodeURIComponent(mensaje)}`;
+            window.open(whatsappURL, '_blank'); // Intenta abrir la aplicación
+        }
+    
+        function enviarPorEmailAjax() {
+            const formData = new FormData(form);
+    
+            fetch('enviar-mail-con-copia.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert('El correo se ha enviado correctamente.');
+                window.location.href = 'https://displayrollup.com/Displays-Publicitarios/contacto';
+            })
+            .catch(error => {
+                //alert('Hubo un problema al enviar el correo. Inténtalo de nuevo más tarde.');
+            });
+        }
+    
+        // función de enviar por email solamente
+        function enviarPorEmail() {
+            const formData = new FormData(form);
+    
+            fetch('enviar-mail-con-copia.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert('El correo se ha enviado correctamente.');
+                window.location.href = 'https://displayrollup.com/Displays-Publicitarios/contacto';
+            })
+            .catch(error => {
+                //alert('Hubo un problema al enviar el correo. Inténtalo de nuevo más tarde.');
+            });
+        }
+    </script>
+    
+</body>
+</html>

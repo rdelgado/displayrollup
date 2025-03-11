@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>form whatsapp mudanza bcn a bcn</title>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffc578 0%,#fb9d23 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            text-align: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 280px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: transparent; 
+        }
+
+        label {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            display: block;
+            width: 95%;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 18px;
+            border: 1px solid rgb(212, 120, 0);
+            height: 25px;
+            border-radius: 6px;
+        }
+
+        textarea {
+            display: block;
+            width: 95%;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 18px;
+            border: 1px solid rgb(207, 102, 4);
+            height: 100px; /* Cambia el alto del textarea a 100px */
+            border-radius: 6px;
+        }
+
+        select {
+            display: block;
+            width: 95%;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 18px;
+            border: 1px solid rgb(207, 102, 4);
+            height: 35px;
+            border-radius: 6px;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: rgb(119, 117, 117);
+            color: #fff;
+            width: 250px;
+            height: 45px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgb(5, 109, 5);
+            box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="imagenes/whatsapp-social-media.svg" alt="Contacta por whatsapp" height="40px" width="auto"><br><br>
+        <p>Comunicate con nosotros por whatsapp</p>
+        <form id="contact-form">
+            <label for="nombre_apellido">Nombre y Apellido:</label>
+            <input type="text" id="nombre_apellido" name="nombre_apellido" required>
+
+            <!-- Nuevo campo de selección para el asunto -->
+            <label for="asunto">Asunto:</label>
+            <select id="asunto" name="asunto" required>
+                <option value="">Selecciona un asunto</option>
+                <option value="Ventas">Ventas</option>
+                <option value="Facturación">Facturación</option>
+                <option value="Personalización">Personalización</option>
+                <option value="Re Impresión">Re Impresión</option>
+                <option value="Repuestos">Repuestos</option>
+                <option value="Reparación">Reparación</option>
+                <option value="Alquiler">Alquiler</option>
+                <option value="Crear Stand">Crear Stand</option>
+            </select>
+
+            <label for="mensaje">Cuéntanos que necesitas o modelo de Portapendon?</label>
+            <textarea id="mensaje" name="mensaje" rows="10" minlength="20" required></textarea> <!-- Añadido minlength="30" -->
+
+            <input type="checkbox" id="aceptar" name="aceptar" required>
+            <label for="aceptar">He leído y acepto las. <a href="https://displayrollup.com/contacto#politicas-terminos-condiciones" target="_blank">Políticas de Privacidad</a></label>
+
+            <input type="submit" value="Enviar por Whatsapp">
+        </form><br><br><br><br>
+    </div>
+
+    <script type="text/javascript">
+        // Función para mostrar un mensaje en el clic derecho
+        document.oncontextmenu = function(e) {
+            e.preventDefault(); // Desactiva el menú contextual
+            alert("⚠️ Atención ⚠️ \n Fabrica de Portapendones le informa que:\n Todas las imágenes tienen derechos de propiedad y es prohibida su copia.");
+        }
+
+        // Validación adicional con JavaScript
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita el envío del formulario
+
+            var nombre_apellido = encodeURIComponent(document.getElementById('nombre_apellido').value);
+            var asunto = encodeURIComponent(document.getElementById('asunto').value);
+            var mensaje = encodeURIComponent(document.getElementById('mensaje').value);
+
+            if (mensaje.length < 20) {
+                alert('El mensaje debe tener al menos 20 caracteres.');
+                return;
+            }
+
+            // Construye el mensaje con el nuevo campo incluido y el título
+            var mensaje_completo = "Mensaje desde DisplayRollup contacto%0A%0A" +
+                                    "Nombre y Apellido: " + nombre_apellido + "%0A" +
+                                    "Asunto: " + asunto + "%0A" +
+                                    "Mensaje: " + mensaje;
+
+            // Redirige al usuario a WhatsApp con el mensaje
+            var whatsapp_url = "https://wa.me/34644774495?text=" + mensaje_completo; 
+
+            window.open(whatsapp_url, '_blank'); // Abre WhatsApp en una nueva pestaña
+        });
+    </script>    
+</body>
+</html>

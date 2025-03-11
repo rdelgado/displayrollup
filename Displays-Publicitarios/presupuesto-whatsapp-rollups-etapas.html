@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Formulario de Rollup</title>
+    <style>
+        .form-containers {
+            max-width: 290px;
+            margin: 0 auto;
+        }
+        .form-group {
+            display: flex;
+            align-items: center; 
+        }
+        label {
+            margin-right: 5px; 
+            white-space: nowrap; 
+            width: 150px; 
+        }
+        input[type="text"], input[type="number"], input[type="email"] {
+            width: 100%; 
+            padding: 4px;
+            box-sizing: border-box;
+        }
+        input[type="number"].quantity {
+            width: 70px; 
+            text-align: center;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .button-quotation {
+            width: 250px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ccc;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .button-quotation:enabled {
+            background-color: #28a745;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.744);
+        }
+        .button-quotation:disabled {
+            cursor: not-allowed;
+        }
+        .message {
+            display: none;
+            color: #28a745;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .terms {
+            margin-top: 10px;
+        }
+
+        .form-group.name {
+            flex-direction: column; 
+            align-items: flex-start;
+            margin-top: 5px;
+        }
+        .form-group.name label {
+            margin-bottom: 5px; 
+            width: auto; 
+        }
+
+        /* Estilo para las etapas del formulario */
+        .form-step {
+            display: none; /* Ocultamos todas las etapas inicialmente */
+        }
+        .form-step.active {
+            display: block; /* Solo mostramos la etapa activa */
+        }
+
+        .form-group-modify-height {
+            margin-top: 10px;
+            display: none; /* Se oculta inicialmente */
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .slider-container {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .slider {
+            margin-top: 10px;
+            width: 250px;
+        }
+
+        .slider-label {
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-value {
+            margin-left: 5px;
+            width: 50px;
+        }
+
+        /* Estilo para la selección de bolsa de transporte con imágenes */
+        .transport-bag-select {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .transport-bag-select img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+            transition: transform 0.2s;
+        }
+
+        .transport-bag-select img:hover {
+            transform: scale(5.5);
+            cursor: pointer;
+        }
+
+        .transport-bag-select label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .fondito {
+            background-color: bisque;
+            width: 350px;
+            border-radius: 5px;
+            padding-left: 8px;
+            padding-top: 8px;
+        }
+        .anterior {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+<div class="form-containers">
+    <form id="rollupForm">
+        <!-- Etapa 1: Cantidades -->
+        <div class="form-step step-1 active">
+            <div class="form-group">
+                <label for="XGY1-1-a4"><h5 class="titles">Roll-up 21x30 cm</h5></label>
+                <input type="number" id="XGY1-1-a4" name="XGY1-1-a4" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="form-group">
+                <label for="XGY1-1-a3"><h5 class="titles">Roll-up 30x42 cm</h5></label>
+                <input type="number" id="XGY1-1-a3" name="XGY1-1-a3" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="form-group">
+                <label for="XGY1-1-60"><h5 class="titles">Roll-up 60x200 cm</h5></label>
+                <input type="number" id="XGY1-1-60" name="XGY1-1-60" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="form-group">
+                <label for="XGY1-1-85"><h5 class="titles">Roll-up 85x200 cm</h5></label>
+                <input type="number" id="XGY1-1-85" name="XGY1-1-85" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="form-group">
+                <label for="XGY1-1-100"><h5 class="titles">Roll-up 100x200 cm</h5></label>
+                <input type="number" id="XGY1-1-100" name="XGY1-1-100" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="form-group">
+                <label for="XGY1-1-150"><h5 class="titles">Roll-up 150x200 cm</h5></label>
+                <input type="number" id="XGY1-1-150" name="XGY1-1-150" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="form-group">
+                <label for="XGY1-1-200"><h5 class="titles">Roll-up 200x200 cm</h5></label>
+                <input type="number" id="XGY1-1-200" name="XGY1-1-200" class="quantity" pattern="\d*" placeholder="Qty" maxlength="4" />
+            </div>
+            <div class="button-container">
+                <button type="button" id="nextToStep2" class="button-quotation">Siguiente</button>
+            </div>
+        </div>
+
+        <!-- Etapa 2: Área de Personalización -->
+        <div class="form-step step-2">
+            <div class="fondito">
+                <center><p>Área de Personalización</p></center>
+                <div class="form-group">
+                    <label for="modifyHeight">¿Modificar altura?</label>
+                    <select id="modifyHeight" name="modifyHeight">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+
+                <div class="form-group-modify-height">
+                    <label for="modelSelect">Selecciona el modelo:</label>
+                    <select id="modelSelect" name="modelSelect">
+                        <option value="">Seleccionar modelo</option>
+                        <option value="Roll-up 60x200 cm">Roll-up 60x200 cm</option>
+                        <option value="Roll-up 85x200 cm">Roll-up 85x200 cm</option>
+                        <option value="Roll-up 100x200 cm">Roll-up 100x200 cm</option>
+                        <option value="Roll-up 150x200 cm">Roll-up 150x200 cm</option>
+                        <option value="Roll-up 200x200 cm">Roll-up 200x200 cm</option>
+                    </select>
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <label for="sizeSlider">Altura gráfica:</label>
+                        <input type="number" id="sliderValue" class="slider-value" value="200" min="50" max="350"> cm
+                    </div>
+                    <input type="range" id="sizeSlider" class="slider" min="50" max="350" value="200">
+                </div><br><br>
+
+                <div class="form-group">
+                    <label>Bolsa de transporte:</label>
+                    <div class="transport-bag-select">
+                        <label>
+                            <input type="radio" name="transportBag" value="Estandar" checked />
+                            <img src="/imagenes/bolsa-rollup-economico.webp" alt="Estandar">
+                            <span>Estandar</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="transportBag" value="Bolsa simple" />
+                            <img src="/imagenes/bolsa-normal-con-caja.webp" alt="Bolsa simple">
+                            <span>Bolsa +<br>Caja</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="transportBag" value="Bolsa de lujo" />
+                            <img src="/imagenes/bolsa-lujo-con-caja.webp" alt="Bolsa de lujo">
+                            <span>Bolsa LUJO +<br>Caja</span>
+                        </label>
+                    </div>
+                </div>
+            </div><br><br>
+            <div class="button-container">
+                <button type="button" id="prevToStep1" class="button-quotation" style="background-color: #ccc; width: 120px;">Anterior</button><br><br>
+                <button type="button" id="nextToStep3" class="button-quotation">Siguiente</button>
+            </div>
+        </div>
+
+        <!-- Etapa 3: Datos para el Presupuesto -->
+        <div class="form-step step-3">
+            <center><p>Datos para el Presupuesto</p></center>
+            <div class="form-group name">
+                <label for="fullName">Nombre y Apellido:</label>
+                <input type="text" id="fullName" name="fullName" minlength="10" required />
+            </div>
+            <div class="form-group name">
+                <label for="email">Correo Electronico:</label>
+                <span style="color: red; font-size: 13px; margin: 0%;">* El presupuesto te llegara al correo que ingreses</span>
+                <input type="email" id="email" name="email" minlength="5" required />
+            </div>
+            <div class="form-group name">
+                <label for="Ciudad">Ciudad:</label>
+                <input type="text" id="Ciudad" name="Ciudad" minlength="4" required />
+            </div>
+            <div class="form-group name">
+                <label for="comment">Comentario:</label>
+                <input type="text" id="comment" name="comment" />
+            </div>
+            <div class="form-group terms">
+                <input type="checkbox" id="terms" name="terms" required />
+                <label for="terms">Acepto los <a href="#">términos y condiciones</a></label>
+            </div><br><br>
+            <div class="button-container">
+                <button type="button" id="prevToStep2" class="button-quotation" style="background-color: #ccc; width: 120px;">Anterior</button><br><br>
+                <button type="submit" id="button-quotation" class="button-quotation" disabled>Enviar Cotización</button>
+            </div>
+        </div>
+    </form>
+    <div id="confirmationMessage" class="message">¡Tu mensaje ha sido enviado!</div>
+</div>
+
+<script>
+const form = document.getElementById('rollupForm');
+const button = document.getElementById('button-quotation');
+const message = document.getElementById('confirmationMessage');
+const modifyHeightSelect = document.getElementById('modifyHeight');
+const modelSelect = document.getElementById('modelSelect');
+const sizeSlider = document.getElementById('sizeSlider');
+const sliderValue = document.getElementById('sliderValue');
+const formGroupModifyHeight = document.querySelector('.form-group-modify-height');
+const sliderContainer = document.querySelector('.slider-container');
+const terms = document.getElementById('terms');
+
+const prices = {
+    "Roll-up 21x30 cm": 10.50,
+    "Roll-up 30x42 cm": 15.00,
+    "Roll-up 60x200 cm": 20.00,
+    "Roll-up 85x200 cm": 25.50,
+    "Roll-up 100x200 cm": 30.00,
+    "Roll-up 150x200 cm": 35.00,
+    "Roll-up 200x200 cm": 40.00,
+};
+
+const steps = document.querySelectorAll('.form-step');
+let currentStep = 0;
+
+function showStep(stepIndex) {
+    steps.forEach((step, index) => {
+        step.classList.toggle('active', index === stepIndex);
+    });
+}
+
+document.getElementById('nextToStep2').addEventListener('click', () => {
+    currentStep = 1;
+    showStep(currentStep);
+});
+
+document.getElementById('prevToStep1').addEventListener('click', () => {
+    currentStep = 0;
+    showStep(currentStep);
+});
+
+document.getElementById('nextToStep3').addEventListener('click', () => {
+    currentStep = 2;
+    showStep(currentStep);
+});
+
+document.getElementById('prevToStep2').addEventListener('click', () => {
+    currentStep = 1;
+    showStep(currentStep);
+});
+
+modifyHeightSelect.addEventListener('change', function() {
+    if (this.value === 'si') {
+        formGroupModifyHeight.style.display = 'flex';
+    } else {
+        formGroupModifyHeight.style.display = 'none';
+        sliderContainer.style.display = 'none';
+    }
+});
+
+modelSelect.addEventListener('change', function() {
+    if (this.value) {
+        sliderContainer.style.display = 'flex';
+    } else {
+        sliderContainer.style.display = 'none';
+    }
+});
+
+sizeSlider.addEventListener('input', function() {
+    sliderValue.value = this.value;
+});
+
+sliderValue.addEventListener('input', function() {
+    sizeSlider.value = this.value;
+});
+
+form.addEventListener('input', () => {
+    button.disabled = !terms.checked || !form.checkValidity();
+});
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let whatsappMessage = "Hola, solicito presupuesto roll-ups DisplayROLLUP:\n";
+    
+    const quantities = {
+        "Roll-up 21x30 cm": parseFloat(document.getElementById('XGY1-1-a4').value) || 0,
+        "Roll-up 30x42 cm": parseFloat(document.getElementById('XGY1-1-a3').value) || 0,
+        "Roll-up 60x200 cm": parseFloat(document.getElementById('XGY1-1-60').value) || 0,
+        "Roll-up 85x200 cm": parseFloat(document.getElementById('XGY1-1-85').value) || 0,
+        "Roll-up 100x200 cm": parseFloat(document.getElementById('XGY1-1-100').value) || 0,
+        "Roll-up 150x200 cm": parseFloat(document.getElementById('XGY1-1-150').value) || 0,
+        "Roll-up 200x200 cm": parseFloat(document.getElementById('XGY1-1-200').value) || 0,
+    };
+
+    let total = 0;
+
+    for (const [key, value] of Object.entries(quantities)) {
+        if (value > 0) {
+            const cost = prices[key] * value;
+            total += cost;
+            whatsappMessage += `- ${key}: ${value} unid, Total: ${cost.toFixed(2)}€\n`;
+        }
+    }
+
+    if (modifyHeightSelect.value === 'si' && modelSelect.value) {
+        const selectedModel = modelSelect.value;
+        const newHeight = sizeSlider.value;
+        whatsappMessage += `- Modificar altura de ${selectedModel} a ${newHeight} cm. se presupuestara a parte.\n`;
+    }
+
+    const selectedTransportBag = Array.from(document.querySelectorAll('input[name="transportBag"]:checked'))[0]?.value;
+    if (selectedTransportBag) {
+        whatsappMessage += `- Bolsa de transporte: ${selectedTransportBag} se presupuestara a parte.\n`;
+    }
+
+    whatsappMessage += `\nTotal: sin modificaciones altura, ni bolsa: ${total.toFixed(2)}€\n`;
+    whatsappMessage += `Nombre: ${form.fullName.value}\n`;
+    whatsappMessage += `Correo: ${form.email.value}\n`;
+    whatsappMessage += `Ciudad: ${form.Ciudad.value}\n`;
+
+    if (form.comment.value) {
+        whatsappMessage += `Comentario: ${form.comment.value}\n`;
+    }
+
+    const whatsappLink = `https://wa.me/34644774495?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappLink, '_blank');
+
+    message.style.display = 'block';
+    setTimeout(() => {
+        message.style.display = 'none';
+        form.reset();
+        currentStep = 0;
+        showStep(currentStep);
+        modifyHeightSelect.value = 'no';
+        formGroupModifyHeight.style.display = 'none';
+        sliderContainer.style.display = 'none';
+        Array.from(document.querySelectorAll('input[name="transportBag"]')).forEach(radio => radio.checked = false);
+    }, 5000);
+});
+</script>
+
+</body>
+</html>

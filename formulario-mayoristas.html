@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Suscripción Mayoristas</title>
+    <style>
+        .form-container {
+            width: 350px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid red;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .gdpr-text, .expect-text {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        #submit {
+            width: 150px;
+            padding: 10px;
+            background-color: #28a745; /* Verde cuando aparece */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 auto; /* Centrado */
+            display: none; /* Oculto por defecto en CSS */
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+            margin-bottom: 10px;
+        }
+        /* Media query para vista móvil */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 320px; /* Ancho de 320px en móviles */
+                margin: 10px auto;
+                padding: 10px
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="https://grupoexposistemas.com/sendy/subscribe" method="POST" accept-charset="utf-8" id="subscription-form">
+            <label for="name">Nombre y Apellido</label>
+            <input type="text" name="name" id="name" placeholder="Ej: Juan Perez"/>
+            <span class="error" id="name-error">Debe tener 2 palabras de al menos 3 letras cada una.</span>
+
+            <label for="email">Correo electrónico</label>
+            <input type="email" name="email" id="email" placeholder="Ej: tu@email.com"/>
+            <span class="error" id="email-error">El email debe contener '@' y no puede incluir signos especiales como < > ".</span>
+
+            <input type="checkbox" name="gdpr" id="gdpr"/>
+            <span class="gdpr-text"><strong>Aceptación Politica RGPD</strong>:<br> He leído y acepto la <a href="https://displayrollup.com/contacto#politicas-terminos-condiciones" target="_blank">Política de privacidad</a> 
+                y las <a href="https://displayrollup.com/contacto#politicas-terminos-condiciones" target="_blank">Condiciones de uso</a>.</span>
+
+            <div style="display:none;">
+                <label for="hp">HP</label><br/>
+                <input type="text" name="hp" id="hp"/>
+            </div>
+            <input type="hidden" name="list" value="pEs72jdq26k87mujYiFkvQ"/>
+            <input type="hidden" name="subform" value="yes"/>
+            <input type="submit" name="submit" id="submit" value="Enviar"/>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('subscription-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const gdprCheckbox = document.getElementById('gdpr');
+        const submitButton = document.getElementById('submit');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+
+        // Asegurarse de que el botón esté oculto al cargar la página
+        submitButton.style.display = 'none';
+
+        // Expresión regular para permitir solo letras y espacios
+        const safeTextRegex = /^[a-zA-Z\s]+$/;
+        // Expresión regular para validar email básico
+        const emailRegex = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
+
+        function validateName() {
+            const name = nameInput.value.trim();
+            const words = name.split(/\s+/).filter(word => word.length > 0);
+            const isValid = words.length === 2 && 
+                           words.every(word => word.length >= 3 && safeTextRegex.test(word));
+            
+            if (!isValid && name.length > 0) {
+                nameError.style.display = 'block';
+            } else {
+                nameError.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const isValid = emailRegex.test(email);
+            
+            if (!isValid && email.length > 0) {
+                emailError.style.display = 'block';
+            } else {
+                emailError.style.display = 'none';
+            }
+            return isValid;
+        }
+
+        function updateSubmitButton() {
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isGdprChecked = gdprCheckbox.checked;
+            const areFieldsFilled = nameInput.value.trim().length > 0 && emailInput.value.trim().length > 0;
+
+            if (isNameValid && isEmailValid && isGdprChecked && areFieldsFilled) {
+                submitButton.style.display = 'block'; // Mostrar botón solo si todo es válido y está lleno
+            } else {
+                submitButton.style.display = 'none'; // Ocultar si falta algo
+            }
+        }
+
+        // Validar mientras se escribe y filtrar caracteres no permitidos
+        nameInput.addEventListener('input', () => {
+            nameInput.value = nameInput.value.replace(/[^a-zA-Z\s]/g, '');
+            updateSubmitButton();
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailInput.value = emailInput.value.replace(/[<>"]/g, '');
+            updateSubmitButton();
+        });
+
+        gdprCheckbox.addEventListener('change', updateSubmitButton);
+
+        // Prevenir envío si no está validado
+        form.addEventListener('submit', (e) => {
+            if (!validateName() || !validateEmail() || !gdprCheckbox.checked) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

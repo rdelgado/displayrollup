@@ -1,0 +1,116 @@
+.containerAbanico {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+}
+
+.div-img {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    transition: transform 1s;
+}
+
+#div-img-1 {
+    background-color: transparent;
+    z-index: 4;
+}
+
+#div-img-2 {
+    background-color: transparent;
+    z-index: 3;
+}
+
+#div-img-3 {
+    background-color: transparent;
+    z-index: 2;
+}
+
+#div-img-4 {
+    background-color: transparent;
+    z-index: 1;
+}
+
+@media (max-width: 840px) {
+    .containerAbanico {
+        width: 180px;
+        height: 180px;
+    }
+
+    .div-img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .imagenitas {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (min-width: 1681px) {
+    .containerAbanico {
+        width: 450px;
+        height: 450px;
+    }
+
+    .div-img {
+        width: 450px;
+        height: 450px;
+    }
+
+    .imagenitas {
+        width: 450px;
+        height: 450px;
+    }
+}
+
+
+/* STAR efecto de titulos en imagenes */  
+.img-container {
+    color: #fff;
+}
+
+.img-container img {
+    display: block;
+}
+
+.img-container::after {
+    content: attr(title); /* Mostrar el contenido del atributo title */
+    position: absolute;
+    bottom: -30px; /* Ajusta la posición según tu preferencia */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 6px;
+    background-color: rgba(240, 9, 9, 0.90);
+    color: #fff;
+    font-size: 14px;
+    width: 180px;
+    
+    border-radius: 4px;
+    opacity: 0; /* Inicialmente oculto */
+    transition: opacity 0.3s ease; /* Transición suave */
+    pointer-events: none; /* Para evitar que el pseudo-elemento interfiera con el hover */
+}
+
+.img-container:hover::after {
+    opacity: 1; /* Mostrar al hacer hover */
+}
+
+/* END efecto de titulos en imagenes */  
+
+
+/**/
+#miDiv {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 100%;
+    /* Puedes ajustar el height según tus necesidades */
+    height: 50px;
+    background-color: transparent;
+}
+/**/

@@ -1,0 +1,59 @@
+/* Slider */
+.jpage .section .slider {
+  display: flex;
+  overflow-x: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.jpage .section .slider .slide {
+  min-width: 100vw;
+  height: 100%;
+}
+
+.jpage .section .slider .right-slider-btn,
+.jpage .section .slider .left-slider-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.jpage .section .slider .nav-slider {
+  position: sticky;
+  top: 95%;
+  right: 50%;
+  transform: translateX(50%);
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jpage .section .slider .nav-slider button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  margin: 0 12px;
+  background-color: #eb841d;
+  border: none;
+  opacity: 0.9;
+  transition: all 0.7s ease;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-circle-arrow-right'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12h8'/%3E%3Cpath d='m12 16 4-4-4-4'/%3E%3C/svg%3E"); /* Incrusta el SVG aquí */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px; /* Ajusta el tamaño según sea necesario */
+}
+
+
+.jpage .section .slider .nav-slider button.active-slide {
+  width: 24px;
+  height: 24px;
+  border-radius: 25px;
+  opacity: 1;
+  transition: all 0.7s ease;
+  margin: 6px;
+}

@@ -1,0 +1,101 @@
+.contenedor-grid { /* Cambiado el nombre de la clase aquí */
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    width: 400px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.fila-superior {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
+}
+
+.contenido-superior {
+    text-align: center;
+}
+
+.div-vacio {
+    width: 360px;
+    height: 500px;
+    background-color: transparent; /* Color de fondo del div vacío */
+}
+
+.texto-superior {
+    margin-top: 10px;
+}
+
+.boton-reset {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    border: 0px solid black; /* Borde de 1px color negro */
+    border-radius: 15px; /* Radio de 5px */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el texto */
+    box-shadow: none; /* Sin sombra por defecto */
+}
+
+.boton-reset:hover {
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Sombra paralela al hacer hover */
+}
+
+
+.fila-inferior {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+    margin-left: 7px;
+}
+
+.elemento-grid { /* Cambiado el nombre de la clase aquí */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    height: 100%;
+}
+
+.elemento-grid img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.elemento-grid:hover {
+    opacity: 0.8;
+}
+
+        /* Media query para resolución de 840px */
+        @media (max-width: 840px) {
+            .contenedor-grid {
+                width: 200px; /* La mitad de 400px */
+                height: 300px; /* La mitad de 600px */
+                margin-left: 25px;
+            }
+
+            .div-vacio {
+                width: 180px; /* La mitad de 360px */
+                height: 250px; /* La mitad de 500px */
+            }
+
+            .elemento-grid img {
+                width: 45px; /* La mitad de 60px */
+                height: 45px; /* La mitad de 60px */
+            }
+
+            .boton-reset {
+                bottom: -10px;
+                right: -60px;
+            }
+        }

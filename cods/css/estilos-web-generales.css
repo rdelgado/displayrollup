@@ -1,0 +1,2188 @@
+/* Estilos de página */
+html, body {
+    overflow-x: hidden !important;
+    margin: 0;
+    padding: 0;
+    font-family: MontserratAlternates, sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #c1d8e7);
+    background-attachment: fixed; /* Esto fija el fondo */
+    --sb-track-color: #eaeaea;
+    --sb-thumb-color: #E31E24;
+    --sb-size: 15px;
+
+    scrollbar-color: var(--sb-thumb-color) 
+                    var(--sb-track-color);
+
+    scroll-behavior: smooth; /* Desplazamiento suave */                    
+}
+
+body::-webkit-scrollbar {
+    width: var(--sb-size) 
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 5px;
+    }
+
+
+        /* 👇Star Estilo nuevo menu plop con imagenes  */
+        header {
+            position: fixed;
+            top: -50px;
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            transition: top 0.3s;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            position: relative;
+            display: flex; /* Utilizar flex para alinear elementos */
+            align-items: center; /* Centrar verticalmente */
+            padding: 0 10px; /* Espacio lateral */
+        }
+
+        .menu li img {
+            margin: auto; /* Centrar la imagen */
+            width: auto; /* Ancho automático para mantener la proporción */
+        }
+
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            display: block;
+        }
+
+        .menu li:hover .submenu {
+            display: block;
+        }
+
+                /* Submenú */
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: #616161;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            top: 48px;
+        }
+
+        .submenu li {
+            width: 280px;
+            margin-bottom: -10px; /* Espacio entre los elementos */
+        }
+
+        .submenu li a {
+            padding: 10px;
+        }
+
+        .submenu li a img {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+                /* Estilo para móviles */
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            color: white;
+            margin-top: 15px;
+        }
+
+                /* Responsivo */
+        @media (max-width: 840px) {
+            .menu {
+                display: none;
+                flex-direction: column;
+                background-color: #333;
+                margin-top: 10px;
+            }
+            .menu li {
+                text-align: center;
+            }
+            .submenu {
+                position: static;
+            }
+            .mobile-menu {
+                display: block;
+            }
+
+                    /* Cambiar tamaño de las imágenes en el submenú */
+            .submenu li a img {
+                width: 40px; /* Ajustar el ancho a 40px */
+                height: 40px; /* Ajustar la altura a 40px */
+            }
+        }
+
+                /* Agregar flecha hacia abajo para los elementos con submenú */
+        .has-submenu > a::after {
+            content: "\25BE";
+            margin-left: 8px;
+            font-size: 0.8em;
+        }
+
+                /* Subrayar los enlaces al hacer hover en los elementos del menú principal, sin afectar a los submenús */
+        .menu > li:not(.has-submenu) > a:hover,
+        .menu > li.has-submenu:hover > a {
+            color: red; /* Cambiar el color a rojo */
+        }
+
+                /* Subrayar los enlaces del submenú al hacer hover */
+        .submenu li a:hover {
+            text-decoration: underline; /* Subrayar el enlace */
+        }
+
+                /* Estilo para la palabra "Cerrar" en negrita */
+        .bold-text {
+            font-weight: bold;
+        }
+
+                /* Estilo inicial para la imagen */
+        .image-effect {
+            width: 105px; /* Tamaño inicial pequeño */
+            transition: transform 0.9s ease-in-out;
+            transform: scale(0.5); /* Escala inicial más pequeña */
+        }
+
+                /* Estilo para cuando la imagen es visible */
+        .image-effect.visible {
+            transform: scale(1); /* Escala más grande al hacerse visible */
+        }
+
+                /* Estilo zoom imagenes */
+        .zoom-image {
+            transition: transform 0.5s ease; /* Efecto de transición */
+        }
+
+        .zoom-image:hover {
+            transform: scale(2.1); /* Aumenta el tamaño de la imagen al pasar el mouse */
+        }
+
+                /* controla la altura de la palabra cerrar */
+        .fixed-top {
+            position: fixed;
+            top: 15px;
+            right: 20px; /* Coloca la palabra "Cerrar" en el lado derecho */
+            z-index: 1100; /* Asegura que esté por encima del contenido */
+        }
+        /* 👆 END Estilo nuevo menu plop con imagenes  */
+
+
+        
+/* Estilos de logo esquina sup izq */
+        .logo-container {
+            position: absolute;
+            top: 10px; /* 10px del top */
+            left: 20px; /* 20px del margen left */
+            transform: scale(0.4); /* Establecer el tamaño inicial en 40% */
+            transition: transform 2s ease; /* Transición de tamaño en 2 segundos */
+        }
+
+        /* Estilo para pantallas de 840px o menos */
+        @media (max-width: 840px) {
+            .logo-container img {
+                height: 32.5px; /* La mitad de 65px */
+                width: 103px; /* La mitad de 206px */
+            }
+        }
+
+        /* Para mostrar el logo al cargar la página (opcional) */
+        .logo-container.show {
+            transform: scale(1); /* Cambiar el tamaño al 100% */
+        }
+
+    
+        /* START Estilos para el div personalizado 8891*/
+        .personalizado-div {
+            display: inline-block; /* Adapta el ancho al contenido */
+            padding: 5px; /* Añade espacio alrededor del contenido */
+            border: 0px solid #000; /* Borde opcional */
+            text-align: center;
+            white-space: nowrap; /* Impide el salto de línea automático */
+        }
+        /* END Estilos para el div personalizado 8891*/
+
+/* Estilos de contenedor general */
+        .contenedor-general {
+            max-width: calc(100% - 20px);
+            margin-right: 10px;
+            margin-left: 10px;
+            margin: 0 auto;
+            display: block;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background-color: transparent;
+        }
+
+        @media (min-width: 1500px) {
+            .contenedor-general {
+                max-width: calc(100% - 80px);
+                margin-right: 40px;
+                margin-left: 40px;
+                padding: 20px;
+            }
+        }          
+        
+/* Estilos de contenedor general 2 */
+        .contenedor-general2 {
+            max-width: calc(100% - 20px);
+            margin-right: 10px;
+            margin-left: 10px;
+            margin: 0 auto;
+            display: block;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: linear-gradient(to top, #F4913E 20%, transparent 60%);
+            border: 0px solid #F09222;
+            border-radius: 7px;
+            padding: 4px;
+        }
+
+        @media (min-width: 1500px) {
+            .contenedor-general2 {
+                max-width: calc(100% - 80px);
+                margin-right: 40px;
+                margin-left: 40px;
+                padding: 20px;
+            }
+        }          
+        
+/* Estilos de contenedor general 3 */
+        .contenedor-general3 {
+            max-width: calc(100% - 20px);
+            margin-right: 10px;
+            margin-left: 10px;
+            margin: 0 auto;
+            display: block;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: linear-gradient(to top, #F4913E 20%, transparent 60%);
+            border: 0px solid #F09222;
+            border-radius: 7px;
+        }
+
+        @media (min-width: 1500px) {
+            .contenedor-general3 {
+                max-width: calc(100% - 80px);
+                margin-right: 40px;
+                margin-left: 40px;
+                padding: 20px;
+            }
+        }
+
+/*Contenedor del aviso de precios*/
+.aviso-precios{
+    background-color: #000;
+    color: white;
+    border-radius: 10px;
+    padding: 6px;
+}
+
+/*Contenedor del aviso de precios*/
+.compra-online{
+    background-color: #069409;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    width: 250px;
+}
+
+/*Contenedor del aviso de precios*/
+.cotizacion-online{
+    background-color: transparent;
+    border: 1px solid #03540e;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    width: 450px;
+}
+@media (max-width: 800px) {
+    .cotizacion-online{
+        width: 250px;
+    }
+}
+
+/*Start Div de contenido uno debajo de otro*/
+.contenedor-personalizado {
+    border: 1px solid #f5c79b43;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.374);
+    max-width: calc(100% - 60px);
+    margin-right: 30px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    text-align: justify;
+}
+
+/* Estilo para pantallas de 840px o menos */
+@media (max-width: 840px) {
+    .contenedor-personalizado {
+        max-width: calc(100% - 6px);
+        margin-right: 3px;
+        margin-left: 3px;
+        box-shadow: none;
+        border: none;
+        padding: 2px;
+    }
+}
+/*END Div de contenido uno debajo de otro*/
+
+/* grid para div de cotizacion por wp*/        
+.container-budget {
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+    justify-content: center; /* Centra verticalmente el contenido */
+    align-items: center; /* Centra horizontalmente el contenido */
+    flex-wrap: wrap;
+    max-width: calc(100% - 60px);
+    margin-right: 30px;
+    margin-left: 30px;
+    padding: 10px;
+    border: 2px solid #E31E24;
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.374);
+    text-align: center;
+    min-height: 300px;
+}
+
+@media (max-width: 800px) {
+    .container-budget{
+        max-width: calc(100% - 2px);
+        margin-right: 1px;
+        margin-left: 1px;
+        border: 0px solid #E31E24;
+        padding: 2px;
+        box-shadow: none;
+    }
+}
+
+
+/* grid contenedor en dos partes*/        
+.container-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 15px;
+    border: 1px solid #f5c79b43;
+    border-radius: 8px;
+    align-items: center; /* Pegar contenido hacia arriba */
+    justify-content: center;  /* Centrar horizontalmente */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.374);
+}
+.col1, .col2, .col3 {
+    box-sizing: border-box;
+    padding: 10px;
+}
+.col1 {
+    background-color: rgba(173, 216, 230, 0);
+    flex: 0 0 35%;
+    padding: 0%;
+}
+.col2 {
+    background-color: rgba(245, 212, 160, 0);
+    flex: 0 0 65%;
+    border: 0px solid #f57708;
+    border-radius: 10px;
+}
+.col3 {
+    background-color: rgba(224, 255, 255, 0);
+    flex: 0 0 100%;
+}
+@media (min-width: 1550px) {
+    .container-grid {
+        margin: 0 30px;
+    }
+}
+@media (max-width: 884px) {
+    .col1, .col2, .col3 {
+        flex: 0 0 100%;
+    }
+}
+
+@media (max-width: 840px) {
+    .col2 {
+        margin-top: 50px; /* Añade un margen superior de 50px */
+    }
+    .container-grid {
+        box-shadow: none;
+        border: none;
+    }
+}
+
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.grid-item {
+    flex: 1 0 33.33%; /* Cada item ocupa 1/3 del ancho del contenedor */
+    box-sizing: border-box;
+    border: 0px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Alinea el contenido verticalmente */
+    flex-direction: column;
+}
+.full-width {
+    flex: 1 0 100%; /* Estos items ocupan todo el ancho */
+}
+.full-width {
+    flex: 1 0 100%; /* Estos items ocupan todo el ancho */
+}
+
+
+/* grid 2 columnas 1 fila contenido a la mitad */
+.gridsito {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    gap: 1px;
+    margin: 0%;
+    padding: 0%;
+}
+
+@media (max-width: 800px) {
+    .gridsito {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gridsito-item {
+    background-color: transparent;
+    padding: 20px;
+    text-align: center;
+    border: 0px solid #ccc;
+}
+
+
+/* STAR 14 zoom detalles */
+.imagen-zoom {
+    width: 65px;
+    height: 65px;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+.imagen-zoom:hover {
+    width: 300px;
+    height: 300px;
+}
+/* END 14 sombra de imagen tamaño y movimiento */
+
+/* Star Botones de compra y presupuesto version 2 👇 */
+.anws-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none; /* Remover subrayado en el enlace */
+  }
+  
+  .anws-button svg {
+    width: 35px; /* Ajustado el ancho del SVG a 45px */
+    height: 35px; /* Ajustado el alto del SVG a 45px */
+    fill: white;
+  }
+  
+  .anws-button:hover {
+    background-color: #8FBC8F; /* Color de fondo gris verdoso al hacer hover */
+  }
+  
+  .anws-button:hover svg {
+    animation: jello-vertical 0.7s both;
+  }
+  
+  @keyframes jello-vertical {
+    0% {
+      transform: scale3d(1, 1, 1);
+    }
+    30% {
+      transform: scale3d(0.75, 1.25, 1);
+    }
+    40% {
+      transform: scale3d(1.25, 0.75, 1);
+    }
+    50% {
+      transform: scale3d(0.85, 1.15, 1);
+    }
+    65% {
+      transform: scale3d(1.05, 0.95, 1);
+    }
+    75% {
+      transform: scale3d(0.95, 1.05, 1);
+    }
+    100% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  .tooltip-anws {
+    position: absolute;
+    top: -20px;
+    opacity: 0;
+    background-color: #000;
+    color: white;
+    padding: 5px 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.2s;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+    width: 190px; /* Ajustado el ancho a 110px */
+  }
+  
+  .tooltip-anws::before {
+    position: absolute;
+    content: "";
+    width: 0px;
+    height: 0px;
+    background-color: #000;
+    background-size: 1000%;
+    background-position: center;
+    margin-right: 120px;
+    transform: rotate(45deg);
+    bottom: -15%;
+    transition-duration: 0.3s;
+  }
+  
+  .anws-button:hover .tooltip-anws {
+    top: -30px;
+    opacity: 1;
+    transition-duration: 0.3s;
+  }
+/* END Botones de compra y presupuesto version 2 👆 */
+
+
+
+
+/* STAR grid para precios */
+.grid-container-precios {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto; /* Cada columna se ajusta al contenido */
+    gap: 10px;
+    justify-content: center; /* Centra el grid horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    justify-items: center; /* Centra el contenido horizontalmente dentro de cada celda */
+}
+
+
+.caja {
+    background-color: transparent;
+    padding: 10px;
+    text-align: center;
+    border: 0px solid black;
+}
+
+                /* Colores específicos para cada caja */
+.grid-container-precios .caja:nth-child(1) {
+    grid-column: span 6;
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(2) {
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(3) {
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(4) {
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(5) {
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(6) {
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(7) {
+    background-color: transparent;
+}
+
+.grid-container-precios .caja:nth-child(8) {
+    grid-column: span 6;
+    background-color: lightcyan;
+}
+
+                    /* Estilos para pantallas pequeñas */
+@media (max-width: 840px) {
+    .grid-container-precios {
+        grid-template-columns: auto auto;
+    }
+
+    .grid-container-precios .caja:nth-child(1),
+    .grid-container-precios .caja:nth-child(8) {
+        grid-column: span 2;
+    }
+}
+/* END grid para precios */
+
+/* STAR grid de 1c 2f */
+.columna-de-2f {
+    display: grid;
+    grid-template-rows: auto auto;
+    width: 100%;
+}
+.celda {
+    display: flex;
+    align-items: flex-start; /* Pegar contenido hacia arriba */
+    justify-content: center;  /* Centrar horizontalmente */
+    width: 100%;
+}
+.celda-1 {
+    background-color: transparent;
+}
+.celda-2 {
+    background-color: transparent;
+    gap: 6px;
+}
+/* STAR grid de 1c 2f */
+
+
+/* STAR boton Precio con ventana emergente */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .tooltip button {
+    background-color: #db3434;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-out;
+  }
+  
+  .tooltip button:hover {
+    background-color: #b92929;
+    transform: scale(1.05);
+  }
+  
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.890);
+    overflow: auto;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  
+  .modal-content {
+    background-color: #f3f0e9;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    margin: auto;
+    max-width: 75%;
+  }
+  
+  @media (max-width: 824px) {
+    .modal-content {
+      max-width: 100%;
+      padding: 5px;
+    }
+  }
+  
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #db3434;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #b92929;
+  }
+  
+  /* Estilos para la tooltip text */
+  .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #020100;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #020100 transparent transparent transparent;
+  }
+
+/* START ⩢ Avisito ventanita*/  
+.containerinfo {
+    position: relative;
+    display: flex;
+    margin-bottom: 0rem; /* Añadido para espaciar los botones */
+}
+
+button.masinfo {
+    width: 8.5rem; /* 80% de 10rem */
+    height: auto;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    z-index: 2; /* Añadido para asegurar que el botón esté sobre el infoBox */
+}
+
+button.masinfo .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 1.5rem; /* 80% de 3rem */
+    height: 1.5rem; /* 80% de 3rem */
+    background: transparent; /* Cambiado a transparente */
+    border: 1px solid black; /* Añadido un borde rojo */
+    border-radius: 1.3rem; /* Ajustado proporcionalmente */
+}
+
+button.masinfo .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.masinfo .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.1rem; /* Ajustado proporcionalmente */
+    width: 0.9rem; /* 80% de 1.125rem */
+    height: 0.1rem; /* Ajustado proporcionalmente */
+    background: transparent; /* Cambiado a blanco */
+}
+
+button.masinfo .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.23rem; /* Ajustado proporcionalmente */
+    right: 0.05rem; /* Ajustado proporcionalmente */
+    width: 0.5rem; /* 80% de 0.625rem */
+    height: 0.5rem; /* 80% de 0.625rem */
+    border-top: 0.1rem solid #000; /* Ajustado proporcionalmente */
+    border-right: 0.1rem solid #000; /* Ajustado proporcionalmente */
+    transform: rotate(45deg);
+    
+}
+
+button.masinfo .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.6rem 0; /* Ajustado proporcionalmente */
+    margin: 0 0 0 2.1rem; /* Ajustado proporcionalmente */
+    color: #282936;
+    font-size: 12px;
+    line-height: 0.7;
+    text-align: left;
+    text-transform: uppercase;
+    z-index: 2; /* Añadido para asegurar que el texto esté sobre el infoBox */
+}
+
+button.masinfo:hover .circle {
+    width: 100%;
+}
+
+button.masinfo:hover .circle .icon.arrow {
+    background: #000;
+    transform: translate(0.4rem, 0); /* Ajustado proporcionalmente */
+}
+
+button.masinfo:hover .button-text {
+    color: #000;
+}
+
+.info-box {
+    width: 350px;
+    height: 470px;
+    background-color: #f0f0f0;
+    border: 1px solid #000000;
+    box-shadow: 5px 5px 5px #3f3f3fd2;
+    border-radius: 6px;
+    position: absolute;
+    margin-left: -430px;
+    left: calc(50% + 10px); /* Alinea el lado izquierdo a 10px del botón */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 10;
+}
+
+.info-box-content {
+    padding: 3px;
+}
+
+    /* Alineación a la derecha en resoluciones de 840px o menos */
+@media (max-width: 840px) {
+    .info-box {
+        width: 245px;
+        height: 450px;
+        margin-left: -245px;
+    }
+    .info-box-content {
+        padding: 4px;
+    }
+}
+/* END ⨺ Avisito ventanita*/
+
+        /* START abre ventana modal emergente izquierda cod 876 */
+        .anws-button-custom {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Estilos generales para el modal */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%; /* Fuera de pantalla en pantallas grandes */
+            width: 50%; /* Modal lateral por defecto */
+            max-width: 500px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.5s ease;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        /* Modal en modo lateral */
+        .sidebar.open {
+            left: 0;
+        }
+
+        /* Cerrar botón */
+        .close-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Estilos para el popup centrado en pantallas menores a 840px */
+        @media (max-width: 840px) {
+            .sidebar {
+                width: 80%;
+                max-width: 360px;
+                height: auto;
+                top: 50%;
+                left: 50%;
+                transform: translate(5%, -50%);
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+                transition: opacity 0.5s ease;
+                opacity: 0;
+            }
+            
+            .sidebar.open {
+                opacity: 1;
+            }
+        }
+        /* END abre ventana modal emergente izquierda cod 876 */
+
+
+
+                /* START style de boton presupuesto 456*/
+                .custom-button {
+                    position: relative;
+                    overflow: hidden;
+                    outline: none;
+                    cursor: pointer;
+                    width: 270px;
+                    height: 35px;
+                    border-radius: 50px;
+                    background-color: #008000;
+                    border: solid 2px #006400;
+                    font-family: inherit;
+                    margin: 0 auto;
+                   }
+                   
+                   .default-btn, .hover-btn {
+                    background-color: #008000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center; /* Centrar contenido */
+                    gap: 3px;
+                    padding: 5px 5px;
+                    border-radius: 50px;
+                    font-size: 17px;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    transition: all .3s ease;
+                   }
+                   
+                   .hover-btn {
+                    position: absolute;
+                    inset: 0;
+                    background-color: #006400;
+                    transform: translate(0%, 100%);
+                   }
+                   
+                   .default-btn span {
+                    color: hsl(0, 0%, 100%);
+                   }
+                   
+                   .hover-btn span {
+                    color: #fff;
+                   }
+                   
+                   .custom-button:hover .default-btn {
+                    transform: translate(0%, -100%);
+                   }
+                   
+                   .custom-button:hover .hover-btn {
+                    transform: translate(0%, 0%);
+                   }
+                   
+                   .setting-icon {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    background-color: transparent;
+                    border-radius: 10px;
+                   }
+                   
+                   .bar {
+                    width: 50%;
+                    height: 2px;
+                    background-color: rgb(229, 229, 229);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    border-radius: 2px;
+                   }
+                   
+                   /* Animación más lenta para la barra 1 */
+                   @keyframes barAnimation1 {
+                     0%, 100% { transform: translateX(-4px); }
+                     50% { transform: translateX(6px); }
+                   }
+                   
+                   /* Animación más lenta para la barra 2 */
+                   @keyframes barAnimation2 {
+                     0%, 100% { transform: translateX(4px); }
+                     50% { transform: translateX(-6px); }
+                   }
+                   
+                   .bar1::before,
+                   .bar2::before {
+                    content: "";
+                    width: 2px;
+                    height: 2px;
+                    background-color: rgb(126, 117, 255);
+                    position: absolute;
+                    border-radius: 50%;
+                    border: 2px solid white;
+                    box-shadow: 0px 0px 5px white;
+                   }
+                   
+                   .bar1::before {
+                    transform: translateX(-4px);
+                   }
+                   
+                   .bar2::before {
+                    transform: translateX(4px);
+                   }
+                   
+                               /* Activar animación de barras con hover */
+                   .custom-button:hover .hover-btn .bar1::before {
+                    animation: barAnimation1 1.5s ease-in-out 3;
+                   }
+                   
+                   .custom-button:hover .hover-btn .bar2::before {
+                    animation: barAnimation2 1.5s ease-in-out 3;
+                   }
+                   /* END style de boton presupuesto */
+
+
+/* STAR boton cotizacion */
+button.cotizacion {
+    background-color: transparent;
+    border: 3px solid #03540e;
+    color: #03540e;
+    width: 320px;
+    cursor: pointer;
+}
+button.cotizacion:hover{
+    background-color: #069409;
+    border: none;
+    color: #fff;
+    box-shadow: 5px 5px 5px #090909d2;
+}
+/* END boton cotizacion */
+
+/* Estilos de contenedor footer */
+        .contenedor-footer {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: block;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background-color: #E31E24;
+
+        }   
+
+        .footer-izq {
+            display: block;
+            flex-wrap: wrap;
+            max-width: 100%;
+            text-align: left;
+            margin: 15px;
+            line-height: 2;
+        	}                      
+        
+/* Espacio en blanco */      
+        .espacio-en-blanco {
+            height: 70px;
+            margin-top: 0;
+        }
+		@media screen and (max-width: 900px) {
+    		.espacio-en-blanco {
+        	height: 70px; /* Cambiar altura a 150px en pantallas de 900px o menos */
+    	}
+		}  
+        
+/* Espacio en blanco GRANDE*/      
+        .espacio-en-blanco-grande {
+            height: 130px;
+            margin-top: 0;
+        }       
+        
+/* Estilos de tipografia de textos */
+        @font-face {
+            font-family: 'MontserratAlternates';
+            font-style: normal;
+            font-weight: 600;
+            src: url('https://displayrollup.com/ttf/MontserratAlternates-Regular.woff2') format('woff2'),
+                 url('https://displayrollup.com/ttf/MontserratAlternates-Regular.woff') format('woff');
+            font-display: swap;
+        }
+
+ /* Sprites */
+        .spritesheet-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0px;
+        }
+
+        .spritew {
+            background-image: url('https://displayrollup.com/imagenes/tipos-derollups.webp');
+            background-repeat: no-repeat;
+            background-size: 1500px 2000px;
+            will-change: background-position;
+            transition: background-position 0.2s ease-in-out, transform 0.2s ease-in-out;
+            margin: 0 auto;
+
+        }
+
+        .spritew-1, .spritew-2, .spritew-3, .spritew-4, .spritew-5, .spritew-6, .spritew-7,.spritew-8, .spritew-9, .spritew-10, .spritew-11, .spritew-12, 
+        .spritew-13, .spritew-14, .spritew-15, .spritew-16, .spritew-17, .spritew-18, .spritew-19, .spritew-20, .spritew-21, .spritew-22, .spritew-23, 
+        .spritew-24, .spritew-25, .spritew-26, .spritew-27, .spritew-28, .spritew-29, .spritew-30, .spritew-31, .spritew-32, .spritew-33, .spritew-34, 
+        .spritew-35, .spritew-36, .spritew-37, .spritew-38, .spritew-39, .spritew-40, .spritew-41, .spritew-42, .spritew-43, .spritew-44, .spritew-45, .spritew-46, .spritew-47, .spritew-48, .spritew-49 {
+
+            width: 250px;
+            height: 250px;
+        }
+
+            .spritew-1 { background-position: 0 0; }
+            .spritew-2 { background-position: -250px 0; }
+            .spritew-3 { background-position: -500px 0; }
+            .spritew-5 { background-position: -750px 0; }
+            .spritew-6 { background-position: -1000px 0; }
+            .spritew-7 { background-position: -1250px 0; }
+            
+            .spritew-8 { background-position: 0 -250px; }
+            .spritew-9 { background-position: -250px -250px; }
+            .spritew-10 { background-position: -500px -250px; }
+            .spritew-11 { background-position: -750px -250px; }
+            .spritew-12 { background-position: -1000px -250px; }
+            .spritew-13 { background-position: -1250px -250px; }
+            
+            .spritew-14 { background-position: 0 -500px; }
+            .spritew-15 { background-position: -250px -500px; }
+            .spritew-16 { background-position: -500px -500px; }
+            .spritew-17 { background-position: -750px -500px; }
+            .spritew-18 { background-position: -1000px -500px; }
+            .spritew-19 { background-position: -1250px -500px; }
+            
+            .spritew-20 { background-position: 0 -750px; }  
+            .spritew-21 { background-position: -500px -750px; }
+            .spritew-22 { background-position: -750px -750px; }
+            .spritew-23 { background-position: -1000px -750px; }
+            .spritew-24 { background-position: -1250px -750px; } 
+            
+            .spritew-25 { background-position: 0 -1000px; }
+            .spritew-26 { background-position: -250px -1000px; }
+            .spritew-27 { background-position: -500px -1000px; }
+            .spritew-28 { background-position: -750px -1000px; }
+            .spritew-29 { background-position: -1000px -1000px; }
+            .spritew-30 { background-position: -1250px -1000px; }        
+
+            .spritew-31 { background-position: 0 -1250px; }
+            .spritew-32 { background-position: -250px -1250px; }
+            .spritew-33 { background-position: -500px -1250px; }
+            .spritew-34 { background-position: -750px -1250px; }
+            .spritew-35 { background-position: -1000px -1250px; }
+            .spritew-36 { background-position: -1250px -1250px; }   
+
+            .spritew-37 { background-position: -250px -750px; }
+
+            .spritew-38 { background-position: 0 -1500px; }
+            .spritew-39 { background-position: -250px -1500px; }
+            .spritew-40 { background-position: -500px -1500px; }
+            .spritew-41 { background-position: -750px -1500px; }
+            .spritew-42 { background-position: -1000px -1500px; }
+            .spritew-43 { background-position: -1250px -1500px; }
+            
+            .spritew-44 { background-position: 0 -1750px; }
+            .spritew-45 { background-position: -250px -1750px; }
+            .spritew-46 { background-position: -500px -1750px; }
+            .spritew-47 { background-position: -750px -1750px; }
+            .spritew-48 { background-position: -1000px -1750px; }
+            .spritew-49 { background-position: -1250px -1750px; }            
+
+        @media screen and (max-width: 900px) {
+            .spritew {
+                background-size: 900px 1200px;
+            }
+
+        .spritew-1, .spritew-2, .spritew-3, .spritew-4, .spritew-5, .spritew-6, .spritew-7,.spritew-8, .spritew-9, .spritew-10, .spritew-11, .spritew-12, .spritew-13,
+        .spritew-14, .spritew-15, .spritew-16, .spritew-17, .spritew-18, .spritew-19, .spritew-20, .spritew-21, .spritew-22, .spritew-23, .spritew-24, .spritew-25,
+        .spritew-26, .spritew-27, .spritew-28, .spritew-29, .spritew-30, .spritew-31, .spritew-32, .spritew-33, .spritew-34, .spritew-35, .spritew-36, .spritew-37, 
+        .spritew-38, .spritew-39, .spritew-40, .spritew-41, .spritew-42, .spritew-43, .spritew-44, .spritew-45, .spritew-46, .spritew-47, .spritew-48, .spritew-49 {
+                width: 150px;
+                height: 150px;
+                }
+
+
+            .spritew-1 { background-position: 0 0; }
+            .spritew-2 { background-position: -150px 0; }
+            .spritew-3 { background-position: -300px 0; }
+            .spritew-5 { background-position: -450px 0; }
+            .spritew-6 { background-position: -600px 0; }
+            .spritew-7 { background-position: -750px 0; }
+            
+            .spritew-8 { background-position: 0 -150px; }
+            .spritew-9 { background-position: -150px -150px; }
+            .spritew-10 { background-position: -300px -150px; }
+            .spritew-11 { background-position: -450px -150px; }
+            .spritew-12 { background-position: -600px -150px; }
+            .spritew-13 { background-position: -750px -150px; }
+            
+            .spritew-14 { background-position: 0 -300px; }
+            .spritew-15 { background-position: -150px -300px; }
+            .spritew-16 { background-position: -300px -300px; }
+            .spritew-17 { background-position: -450px -300px; }
+            .spritew-18 { background-position: -600px -300px; }
+            .spritew-19 { background-position: -750px -300px; }
+            
+            .spritew-20 { background-position: 0 -450px; } 
+            .spritew-21 { background-position: -300px -450px; } 
+            .spritew-22 { background-position: -450px -450px; } 
+            .spritew-23 { background-position: -600px -450px; } 
+            .spritew-24 { background-position: -750px -450px; } 
+
+            .spritew-25 { background-position: 0 -600px; } 
+            .spritew-26 { background-position: -150px -600px; } 
+            .spritew-27 { background-position: -300px -600px; } 
+            .spritew-28 { background-position: -450px -600px; } 
+            .spritew-29 { background-position: -600px -600px; }
+            .spritew-30 { background-position: -750px -600px; } 
+
+            .spritew-31 { background-position: 0 -750px; }                
+            .spritew-32 { background-position: -150px -750px; } 
+            .spritew-33 { background-position: -300px -750px; } 
+            .spritew-34 { background-position: -450px -750px; } 
+            .spritew-35 { background-position: -600px -750px; }
+            .spritew-36 { background-position: -750px -750px; }
+
+            .spritew-37 { background-position: -150px -450px; }
+
+            .spritew-38 { background-position: 0 -900px; }
+            .spritew-39 { background-position: -150px -900px; }
+            .spritew-40 { background-position: -300px -900px; }
+            .spritew-41 { background-position: -450px -900px; }
+            .spritew-42 { background-position: -600px -900px; }
+            .spritew-43 { background-position: -750px -900px; }
+            
+            .spritew-44 { background-position: 0 -1050px; }
+            .spritew-45 { background-position: -150px -1050px; }
+            .spritew-46 { background-position: -300px -1050px; }
+            .spritew-47 { background-position: -450px -1050px; }
+            .spritew-48 { background-position: -600px -1050px; }
+            .spritew-49 { background-position: -750px -1050px; }           
+        
+            }
+
+            .sprites-centro {
+                display: block;
+                flex-wrap: wrap;
+                max-width: 100%;
+                text-align: center;
+                margin: 0 auto;
+                margin-bottom: 15px;
+                padding: 0px;
+                }            
+        
+/* Estilos de Tipos de Titulos */        
+        h1 {
+            font-size: 16px;
+            color: #000000;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 400;
+            text-align: center;
+            line-height: 1.5;
+            background-color: transparent;
+            padding: 5px;
+        }
+
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 15px;
+            }
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #000000;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.5;
+            background-color: transparent;
+            padding: 1px;
+            margin: 0%;
+        }
+
+        	@media (max-width: 900px) {
+            h2 {
+                font-size: 17px;
+            }
+        }
+
+        .titles{
+            margin: 1px auto;
+            padding: 0%;
+            text-align: center;
+            font-family: 'MontserratAlternates', sans-serif;
+            color: #d00707;
+            font-size: clamp(17px, 4vw + 1rem, 25px);
+        }
+
+
+        h3 {
+            font-size: 18px;
+            color: #000000;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.5;
+            background-color: transparent;
+            padding: 1px;
+        }
+
+        	@media (max-width: 900px) {
+            h3 {
+                font-size: 16px;
+            }
+        }
+        
+        h4 {
+            font-size: 15px;
+            color: black;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.5;
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        	@media (max-width: 900px) {
+            h4 {
+                font-size: 14px;
+            }
+        }
+        
+        h5 {
+            font-size: 17px;
+            color: #BF1212;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 600;
+            text-align: center;
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        	@media (max-width: 900px) {
+            h5 {
+                font-size: 16px;
+            }
+        }
+
+        h6 {
+            font-size: 32px;
+            color: red;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 600;
+            text-align: center;
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        	@media (max-width: 900px) {
+            h6 {
+                font-size: 25px;
+            }
+        }        
+
+        p {
+            font-size: 15px;
+            color: black;
+			margin: 0;
+            padding: 2px;
+            line-height: 1.5;
+        }    
+        
+        p1 {
+            font-size: 15px;
+            color: white;
+			margin: 0px;
+            padding: 10px;
+            line-height: 1.5;
+        }   
+        
+        .p1 {
+            font-size: 15px;
+            color: white;
+			margin: 0px;
+            padding: 0px;
+            line-height: 1.5;
+        }         
+
+        
+        .p2 {
+            font-size: 15px;
+            color: black;
+            font-family: 'MontserratAlternates', sans-serif;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.5;
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+        }   
+        
+        .p3 {
+            font-size: 14px;
+            color: black;
+			margin: 0;
+            padding: 0px;
+            line-height: 1.5;
+        }
+
+        .p4 {
+            font-size: 16px;
+            color: black;
+			margin: 0;
+            padding: 0px;
+        }
+
+        .p5 {
+            font-size: 16px;
+            color: black;
+			margin: 0;
+            padding: 0px;
+            text-align: center;
+        } 
+        
+        .parrafo-personalizado {
+            font-size: 15px;
+            color: black;
+            text-align: justify;
+            background-color: transparent;
+            padding: 10px;
+            line-height: 1.5;
+    	}
+    
+/* STAR Definir la animación de pulsación */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulsating-text {
+    display: inline-block;
+    font-size: 20px;
+    color: #000000;
+    animation: pulse 1.5s ease-in-out 0s 2; /* Ejecuta la animación automáticamente 2 veces */
+    animation-fill-mode: forwards; /* Mantener el último estado de la animación */
+}
+
+                        /* Usar una clase para reiniciar la animación cuando se haga hover */
+.pulsating-text:hover {
+    animation: none; /* Detener cualquier animación previa antes de reiniciar */
+}
+
+.pulsating-text:hover::before {
+    content: '';
+    animation: pulse 1.5s ease-in-out 0s 2; /* Repetir 2 veces en hover */
+    animation-fill-mode: forwards;
+}
+
+/* END Definir la animación de pulsación */
+
+
+/* STAR Migas de pan */
+
+/* END Migas de pan */
+
+
+/* Estilo para el pie de página */
+        footer {
+            background-color: #E31E24; 
+            color: white; 
+            text-align: center; 
+            padding: 25px; 
+        }       
+        
+/* Estilo base del botón ir arriba */
+        #scrollButton {
+            position: fixed;
+            bottom: -50px; /* Inicialmente oculto por debajo de la pantalla */
+            right: 20px;
+            background-color: #E31E24	;
+            color: #fff;
+            font-size: 16px;
+            width: 45px;
+            height: 45px;
+            padding: 10px 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Sombra */
+            transition: background-color 0.3s, transform 0.3s;
+            z-index: 150;
+            }
+
+            /* Estilo del botón al pasar el mouse sobre él */
+        #scrollButton:hover {
+                background-color: #FFD700;
+            }
+
+            /* Estilo del botón cuando se desplaza verticalmente 600px o más */
+        #scrollButton.active {
+                bottom: 50px; /* Aparece a 20px desde la parte inferior */
+            }
+
+            /* Estilo del botón cuando se desplaza verticalmente 700px o más y se pasa el mouse sobre él */
+        #scrollButton.active:hover {
+                background-color: #0033aa;
+            } 
+        
+/* Estilo del aviso de cookies */
+        #cookieNotice {
+            display: none; /* Inicialmente oculto */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #9ACD32;
+            color: #000;
+            padding: 30px;
+            text-align: center;
+            z-index: 250;
+            }
+
+        #cookieNotice a {
+                color: #000;
+                text-decoration: underline;
+                font-size: 20px;
+            }
+            
+/* cambio de divs 1 por otro */
+        .cambio-img-divs {
+                display: flex;
+            }
+
+        .imagen-div {
+                width: 250px;
+                height: 250px;
+                margin: 10px;
+                border: 0px solid #ccc;
+                cursor: pointer;
+            }
+            
+        @media (max-width: 900px) {
+                .imagen-div {
+                    width: 150px;
+                    height: 150px;
+                }
+            }            
+
+        .grupo1 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 1 */
+            }
+
+        .grupo1 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 1 */
+                display: none; /* Ocultar el segundo div del grupo 1 inicialmente */
+            }
+
+        .grupo2 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 2 */
+            }
+
+        .grupo2 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 2 */
+                display: none; /* Ocultar el segundo div del grupo 2 inicialmente */
+            }
+        .grupo3 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 1 */
+            }
+
+        .grupo3 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 1 */
+                display: none; /* Ocultar el segundo div del grupo 1 inicialmente */
+            }
+
+        .grupo4 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 2 */
+            }
+
+        .grupo4 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 2 */
+                display: none; /* Ocultar el segundo div del grupo 2 inicialmente */
+            }    
+        .grupo5 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 1 */
+            }
+
+        .grupo5 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 1 */
+                display: none; /* Ocultar el segundo div del grupo 1 inicialmente */
+            }
+
+        .grupo6 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 2 */
+            }
+
+        .grupo6 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 2 */
+                display: none; /* Ocultar el segundo div del grupo 2 inicialmente */
+            }
+
+        .grupo7 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 2 */
+            }
+
+        .grupo7 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 2 */
+                display: none; /* Ocultar el segundo div del grupo 2 inicialmente */
+            } 
+            
+        .grupo8 #div1 {
+                background-color: transparent; /* Color de fondo del primer div del grupo 2 */
+            }
+
+        .grupo8 #div2 {
+                background-color: transparent; /* Color de fondo del segundo div del grupo 2 */
+                display: none; /* Ocultar el segundo div del grupo 2 inicialmente */
+            } 
+            
+/* STAR Oculta el Contenido */  
+        .ocultar1000 {
+            @media (max-width: 1050px) {
+                display: none; 
+            }  
+        }  
+        .ocultar {
+            @media (max-width: 840px) {
+                display: none; 
+            }  
+        }
+        .none{
+            display: none;
+        }
+/* END Ocualta el Contenido */  
+
+/* STAR Div contenido en linea */ 
+.div-en-linea {
+    padding: 1px;
+}
+.parte-izquierda, .parte-derecha {
+    display: inline-block;
+    vertical-align: top;
+}
+.parte-izquierda {
+    margin-right: 5px; /* Espacio entre las dos partes */
+}
+/* END Div contenido en linea */ 
+
+
+/* Botones con Iframe */
+        .boton-iframe {
+            width: 140px;
+            height: 35px;
+            background-color: #AD0000;
+            border: 1px solid black;
+            border-radius: 7px;
+            font-size: 15px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .boton-iframe:hover {
+            background-color: black;
+            box-shadow: 3px 3px 5px #888888;
+        }
+
+        .iframe-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #000;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 280;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .cerrar-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 35px;
+            background-color: red;
+            color: white;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .cerrar-button:hover {
+            background-color: darkred;
+        }
+
+/* Botones que dirigen a una web */        
+        .boton-abrir-web {
+            width: 140px;
+            height: 30px;
+            display: inline-block;
+            border: 1px solid #000;
+            background-color: #25D366; /* Color del botón */
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 15px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .boton-abrir-web:hover {
+            background-color: black; /* Color al pasar el mouse por encima del botón */
+        } 
+                
+/* Estilos para los enlaces vinculos */
+a {
+    color: #fff; 
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.black {
+    color: #000; 
+}
+
+a.black:hover {
+    color: #000; 
+    text-decoration: underline;
+}
+  
+a.blue {
+    color: #000; 
+    font-weight: bold;
+}
+
+a.blue:hover {
+    color: #000; 
+    text-decoration: underline;
+}
+
+/* Estilos para los mensajes emergentes en textos */
+        .popup {
+            display: none;
+            position: fixed;
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            border-radius: 7px;
+            padding: 5px;
+            text-align: center;
+            width: 350px;
+            height: 350px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%);
+            z-index: 450;
+            }
+        
+        .popup-trigger {
+            padding: 7px;
+            cursor: url('https://displayrollup.com/imagenes/lupa.png'), help;
+            }
+
+        .popup-trigger:hover {
+            text-decoration: underline;
+            }
+
+/* Estilos textos en acordeon */
+        .accordion {
+            cursor: pointer;
+            padding: 10px;
+            margin: 0%;
+            border: 0px solid #ccc;
+            border-radius: 8px;
+            background-color: transparent;
+            transition: background-color 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .accordion:hover {
+            background-color: #f4deb8;
+        }
+
+        .accordion-content {
+            display: none;
+            background-color: white;
+            border: 0px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        .icon-plus {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: #AD0000;
+        }
+
+        .icon-x {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: red;
+            font-size: 20px;
+        }    
+
+ 
+/* Estilos Imagenes en carousel */
+        .carousel-container {
+            width: 100%;
+            max-width: 100%;
+            max-height: 350px;
+            background-color: transparent;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            width: 100%; /* Para que el carrusel ocupe todo el ancho */
+        }
+
+        .slide {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0; /* Evita que las imágenes se deformen */
+            margin-right: 10px; /* Añade espacio de 10px entre divs */
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+
+        .prev-button,
+        .next-button {
+            width: 50px;
+            height: 35px;
+            border-radius: 10px;
+            position: absolute;            
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .prev-button-left {
+            left: 10px;
+        }
+
+        .next-button-left { 
+            right: 10px;
+        }
+
+/* Estilo del botón Grande*/
+        .download-button-container {
+            text-align: center;
+        }
+
+        .download-button {
+            width: 260px;
+            height: 35px;
+            background-color: #A32D00;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #000;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            line-height: 35px;
+        }
+
+        /* Efecto hover */
+        .download-button:hover {
+            background-color: #000;
+            box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+/* Estilo boton json de precios*/
+.precio-btn {
+    width: 90px;
+    height: 25px;
+    background-color: transparent;
+    border: 0px solid transparent;
+    border-radius: 0px;
+    text-align: center;
+    color: #d31212;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@media (max-width: 840px) {
+    .precio-btn {
+        font-size: 20px; /* Cambiar el tamaño del texto a 20px cuando la resolución sea 840px o menos */
+    }
+}
+
+
+/* Estilo botones a URL*/
+        button {
+            width: 135px;
+            height: 30px;
+            border: 1px solid black;
+            background-color: red;
+            font-size: 18px;
+            color: white;
+            border-radius: 9px;
+            /*cursor: pointer;*/
+            padding: 1px;
+            transition: box-shadow 0.3s; /* Agregar transición para la sombra */
+          }
+      
+          button .icon {
+            margin-right: 5px;
+          }
+      
+          /*button:hover {
+            background-color: black;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Agregar sombra en hover */
+          /*}
+
+/* STAR 15 sombra de imagen tamaño y movimiento */
+.image-shadowa {
+    filter: drop-shadow(0 15px 8px rgba(0, 0, 0, 0.645));
+    width: auto;
+    height: 600px;
+    animation: zoomIn 1.5s ease-in-out;
+  }
+  
+  @media (max-width: 1100px) {
+    .image-shadowa {
+      height: auto;
+      width: 450px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .image-shadowa {
+      height: auto;
+      width: 300px;
+    }
+  }
+  
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.7);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  @media (min-width: 1600px) and (max-width: 2399px) {
+    .image-shadowa {
+      height: 650px;
+      width: auto;
+    }
+  }
+  
+  @media (min-width: 2400px) {
+    .image-shadowa {
+      height: 1000px;
+      width: auto;
+    }
+  }
+  /* END 15 sombra de imagen tamaño y movimiento */
+
+
+/* STAR efecto de titulos en imagenes */  
+  .img-container {
+    position: relative;
+    display: inline-block;
+}
+
+.img-container img {
+    display: block;
+}
+
+.img-container::after {
+    content: attr(title); /* Mostrar el contenido del atributo title */
+    position: absolute;
+    bottom: -30px; /* Ajusta la posición según tu preferencia */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 6px;
+    background-color: rgba(240, 9, 9, 0.90);
+    color: #fff;
+    font-size: 14px;
+    width: 230px;
+    
+    border-radius: 4px;
+    opacity: 0; /* Inicialmente oculto */
+    transition: opacity 0.3s ease; /* Transición suave */
+    pointer-events: none; /* Para evitar que el pseudo-elemento interfiera con el hover */
+}
+
+.img-container:hover::after {
+    opacity: 1; /* Mostrar al hacer hover */
+}
+/* END efecto de titulos en imagenes */
+
+
+/* STAR espacio de 50 en movil 1*/
+.space-no-movil {
+    height: 50px;
+  }
+  
+  @media screen and (max-width: 840px) {
+    .space-no-movil {
+        height: 1px;
+    }
+  }
+  
+  @media screen and (min-width: 1600px) and (max-width: 2400px) {
+    .space-no-movil {
+        height: 80px;
+    }
+  }
+  
+  /* END espacio de 50 en movil 1*/
+
+/* STAR Grid de precios con fondo gris claro*/
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.row {
+    background-color: #e0e0e0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.row-1, .row-6 {
+    background-color: transparent;
+}
+
+.row-2, .row-3, .row-4, .row-5 {
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.cell {
+    background-color: transparent;
+    flex: 1 1 16.66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .cell {
+        flex: 1 1 33.33%;
+        max-width: 33.33%;
+    }
+}
+
+@media (max-width: 840px) {
+    .cell {
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+}
+/* END Grid de precios con fondo gris claro*/
+
+/* STAR Div con contenido centrado */
+.centrado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+/* END Div con contenido centrado */

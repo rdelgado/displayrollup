@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Formulario de Rollup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            margin: auto;
+        }
+
+        @media (max-width: 825px) {
+            .container {
+                width: 330px;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 0%;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 30px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+
+        .btn-submit svg {
+            margin-right: 10px;
+        }
+
+        .altura{
+            background-color: bisque;
+            padding: 1px 8px;
+            border-radius: 8px;
+        }
+
+        .accesorios{
+            background-color: #FFA07A;
+            padding: 1px 8px;
+            border-radius: 8px;
+        }
+
+        .repuestos{
+            background-color: #FF6347;
+            padding: 1px 8px;
+            border-radius: 8px;
+        }
+
+        .enlinea{
+            display: flex; 
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post" action="send_whatsapp.php" target="_blank">
+            <div class="form-group">
+                <label for="nombre">Nombre y Apellido *</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="rollup">Tipos de Rollup *</label>
+                <select id="rollup" name="rollup" required onchange="updateSizes()">
+                    <option value="">Seleccione un tipo de Rollup</option>
+                    <option value="economico">▹Rollup económico</option>
+                    <option value="lujo">▹Rollup de lujo</option>
+                    <option value="doble-cara">▹Rollup doble cara</option>
+                    <option value="doble-cara-exteriores">▹Rollup doble cara para exteriores</option>
+                    <option value="mini">▹Rollup Mini A4 y A3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ancho">Ancho *</label>
+                <select id="ancho" name="ancho" required>
+                    <option value="">Seleccione un ancho</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cantidad">Cantidad *</label>
+                <input type="number" id="cantidad" name="cantidad" required>
+            </div>
+            <div class="form-group">
+                <label for="terminado">Terminado *</label>
+                <select id="terminado" name="terminado" required>
+                    <option value="">Seleccione el tipo de terminado</option>
+                    <option value="completo">▹Completo: Estructura con Impresión</option>
+                    <option value="reimpresion">▹Re Impresión</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comentario">Comentario</label>
+                <textarea id="comentario" name="comentario"></textarea>
+            </div>
+            <br><br>
+            <div class="altura">
+                <center><p><b>Personalización de Altura</b></p>
+                    <div class="form-group">
+                        <label for="altura">La altura puede ir desde los 50cm a los 300cm</label>
+                        <input type="number" id="altura" name="altura">
+                    </div>
+                </center>
+            </div>
+            <br>
+            <div class="accesorios">
+                <center><p><b>Accesorios</b></p>
+                    <div class="form-group">
+                        <label for="accesorios">Deseo añadirle al mi expositor:</label>
+                        <select id="accesorios" name="accesorios" >
+                            <option value="">Añade un Accesorio</option>
+                            <option value="luces">▹Luces led</option>
+                            <option value="baldas">▹Baldas para folletos</option>
+                            <option value="mostrador">▹Mostradores</option>
+                        </select>
+                    </div>
+                </center>
+            </div>
+            <br>
+            <div class="repuestos">
+                <center><p><b>Repuestos</b></p>
+                    <div class="form-group">
+                        <label for="repuestos">Busco un repuesto para mi expositor:</label>
+                        <select id="repuestos" name="repuestos" >
+                            <option value="">Añadir un repuesto</option>
+                            <option value="perfil">▹Perfil superior</option>
+                            <option value="mastil">▹Mástil 200cm</option>
+                            <option value="tapones">▹Tapones plasticos del perfil</option>
+                            <option value="reparacion">▹Servicio de reparación</option>
+                            <option value="reimpresion">▹Montaje Gráfica</option>
+                        </select>
+                    </div>
+                </center>
+            </div>
+            <br>
+            <div class="enlinea">
+                <input type="checkbox" id="acepta-datos" name="acepta-datos" required>
+                <label for="acepta-datos">Acepto políticas * <a href="https://ventadeportapendones.com/contacto#politicas-terminos-condiciones" target="_blank">Ver términos legales</a></label>
+            </div>
+            <div class="enlinea">
+                <input type="checkbox" id="acepta-info" name="acepta-info" required>
+                <label for="acepta-info">Acepto recibir información, ofertas y cotizaciones *</label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn-submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                    Enviar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateSizes() {
+            const rollup = document.getElementById('rollup').value;
+            const ancho = document.getElementById('ancho');
+
+            ancho.innerHTML = '';
+
+            const options = {
+                'economico': [
+                    'Ancho 60 cm',
+                    'Ancho 85 cm',
+                    'Ancho 100 cm',
+                    'Ancho 150 cm',
+                    'Ancho 200 cm'
+                ],
+                'lujo': [
+                    'Ancho 85 cm',
+                    'Ancho 100 cm',
+                    'Ancho 240 cm',
+                    'Ancho 300 cm'
+                ],
+                'doble-cara': [
+                    'Ancho 85 cm',
+                    'Ancho 100 cm'
+                ],
+                'doble-cara-exteriores': [
+                    'Ancho 85 cm',
+                    'Ancho 100 cm'
+                ],
+                'mini': [
+                    'Ancho A4 21x30 cm',
+                    'Ancho A3 30x42 cm'
+                ]
+            };
+
+            options[rollup].forEach(size => {
+                const option = document.createElement('option');
+                option.value = size;
+                option.textContent = size;
+                ancho.appendChild(option);
+            });
+        }
+    </script>
+</body>
+</html>

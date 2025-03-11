@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir a PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div id="contenido">
+            <h1>Mi página web</h1>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <p>Este es el contenido que se convertirá en PDF.</p>
+            <img src="/imagenes/golf-banner.webp" alt="a ver">
+        </div>
+        <button id="descargarPDF">Descargar como PDF</button>
+    </center>
+
+    <!-- Incluye las librerías jsPDF y html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Espera a que el DOM esté cargado
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtiene el botón
+            const botonPDF = document.getElementById("descargarPDF");
+
+            // Añade un evento al hacer clic
+            botonPDF.addEventListener("click", function() {
+                // Accede a jsPDF desde la librería cargada
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Obtiene el contenido que quieres convertir en PDF
+                const contenido = document.getElementById("contenido");
+
+                // Usa html2canvas para renderizar el contenido como imagen
+                html2canvas(contenido).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 190; // Ancho en mm (ajustado a A4)
+                    const pageHeight = 295; // Alto de una página A4 en mm
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+
+                    let position = 10; // Margen superior
+
+                    // Agrega la imagen al PDF
+                    doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    // Si el contenido es muy largo, añade más páginas
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    // Descarga el PDF
+                    doc.save("presupuesto.pdf");
+                });
+            });
+        });
+    </script>
+</body>
+</html>

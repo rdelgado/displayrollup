@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        #cart {
+            width: 390px; /* Ancho normal */
+        }
+
+        @media (max-width: 840px) {
+            #cart {
+                width: 360px; /* Ancho en pantallas de 840px o menos */
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        th, td {
+            padding: 4px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .add-to-cart {
+            background-color: #4CAF50; /* Verde */
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .add-to-cart:hover {
+            background-color: #45a049;
+        }
+        .quantity-button {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            background-color: #45a049;
+            border: none;
+            cursor: pointer;
+            transition: box-shadow 0.3s, background-color 0.3s; /* Agregar transición para la sombra */
+        }
+        .quantity-button:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra al hacer hover */
+            background-color: #3e8e41; /* Cambiar color de fondo al hacer hover */
+        }
+        .required {
+            color: red;
+            display: inline; /* Cambiado a inline */
+            font-size: 12px;
+            margin-left: 5px; /* Espaciado a la izquierda */
+        }
+        #order-button {
+            background-color: #004d00; /* Verde oscuro */
+            color: white;
+            width: 150px;
+            height: 40px;
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #order-button.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+        input {
+            padding: 4px;
+            margin-bottom: 5px;
+            width: calc(100% - 20px); /* Espacio para el texto requerido */
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div id="cart">
+    <h4>Carrito de Compras</h4>
+    <table id="product-table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>60x200</td>
+                <td>100.20 €</td>
+                <td>
+                    <button class="quantity-button" onclick="updateQuantity('camisas', -1)">-</button>
+                    <span id="camisas-qty">0</span>
+                    <button class="quantity-button" onclick="updateQuantity('camisas', 1)">+</button>
+                </td>
+                <td><span class="remove-product" onclick="removeProduct('camisas')">X</span></td>
+            </tr>
+            <tr>
+                <td>85x200</td>
+                <td>155.25 €</td>
+                <td>
+                    <button class="quantity-button" onclick="updateQuantity('pantalones', -1)">-</button>
+                    <span id="pantalones-qty">0</span>
+                    <button class="quantity-button" onclick="updateQuantity('pantalones', 1)">+</button>
+                </td>
+                <td><span class="remove-product" onclick="removeProduct('pantalones')">X</span></td>
+            </tr>
+            <tr>
+                <td>100x200</td>
+                <td>1024.00 €</td>
+                <td>
+                    <button class="quantity-button" onclick="updateQuantity('overoles', -1)">-</button>
+                    <span id="overoles-qty">0</span>
+                    <button class="quantity-button" onclick="updateQuantity('overoles', 1)">+</button>
+                </td>
+                <td><span class="remove-product" onclick="removeProduct('overoles')">X</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Subtotal: <span id="subtotal">0.00</span> €</h4>
+    <h4>IVA (21%): <span id="tax">0.00</span> €</h4>
+    <h3>Total: <span id="total">0.00</span> €</h3>
+
+    <h4>Datos del Cliente</h4>
+    <div class="input-wrapper">
+        <label for="name">Nombre Completo</label><span class="required" id="required-name">Requerido</span>
+        <input type="text" id="name" oninput="checkRequired('required-name')" required>
+    </div>
+    
+    <div class="input-wrapper">
+        <label for="phone">Teléfono</label><span class="required" id="required-phone">Requerido</span>
+        <input type="text" id="phone" oninput="checkRequired('required-phone')" required>
+    </div>
+
+    <div class="input-wrapper">
+        <label for="id-number">Número de Identificación</label><span class="required" id="required-id-number">Requerido</span>
+        <input type="text" id="id-number" oninput="checkRequired('required-id-number')" required>
+    </div>
+
+    <div class="input-wrapper">
+        <label for="address">Dirección de Envío</label><span class="required" id="required-address">Requerido</span>
+        <input type="text" id="address" oninput="checkRequired('required-address')" required>
+    </div>
+
+    <button id="order-button" disabled onclick="createCheckoutSession()">Hacer Pedido</button>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    // Configuración de Stripe
+    const stripe = Stripe('TU_CLAVE_PUBLICA_DE_STRIPE'); // Reemplaza con tu clave pública
+
+    let products = {
+        camisas: { price: 100.20, qty: 0 },
+        pantalones: { price: 155.25, qty: 0 },
+        overoles: { price: 1024.00, qty: 0 }
+    };
+
+    function updateQuantity(product, change) {
+        products[product].qty += change;
+        if (products[product].qty < 0) products[product].qty = 0;
+        document.getElementById(`${product}-qty`).innerText = products[product].qty;
+        calculateTotals();
+    }
+
+    function removeProduct(product) {
+        products[product].qty = 0;
+        document.getElementById(`${product}-qty`).innerText = 0;
+        calculateTotals();
+    }
+
+    function calculateTotals() {
+        let subtotal = Object.values(products).reduce((sum, product) => sum + (product.price * product.qty), 0);
+        let tax = subtotal * 0.21;
+        let total = subtotal + tax;
+
+        document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+        document.getElementById('tax').innerText = tax.toFixed(2);
+        document.getElementById('total').innerText = total.toFixed(2);
+
+        checkOrderButton();
+    }
+
+    function checkOrderButton() {
+        let name = document.getElementById('name').value;
+        let phone = document.getElementById('phone').value;
+        let idNumber = document.getElementById('id-number').value;
+        let address = document.getElementById('address').value;
+
+        const hasProducts = Object.values(products).some(product => product.qty > 0);
+        const allRequiredFilled = name && phone && idNumber && address;
+
+        const orderButton = document.getElementById('order-button');
+        if (hasProducts && allRequiredFilled) {
+            orderButton.disabled = false;
+            orderButton.classList.add('active');
+        } else {
+            orderButton.disabled = true;
+            orderButton.classList.remove('active');
+        }
+    }
+
+    function checkRequired(requiredId) {
+        const requiredSpan = document.getElementById(requiredId);
+        requiredSpan.style.display = 'none'; // Ocultar el texto "Requerido"
+        checkOrderButton(); // Verificar si se puede habilitar el botón de pedido
+    }
+
+    async function createCheckoutSession() {
+        const response = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: Object.entries(products).filter(([_, product]) => product.qty > 0).map(([key, product]) => ({
+                    name: key.charAt(0).toUpperCase() + key.slice(1),
+                    quantity: product.qty,
+                    price: product.price * 100 // Stripe usa centavos
+                }))
+            })
+        });
+        const sessionId = await response.json();
+        const result = await stripe.redirectToCheckout({ sessionId });
+        if (result.error) {
+            alert(result.error.message);
+        }
+    }
+</script>
+</body>
+</html>
